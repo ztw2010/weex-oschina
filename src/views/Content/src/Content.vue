@@ -28,7 +28,7 @@ export default {
     },
     methods: {
         goDetailContent() {
-            this.$router.push({name : 'newsdetail', params: {newsId: this.x.id}})
+            this.$router.push({name : 'newsdetail', params: {newsId: this.x.id, newsType: this.x.type}})
         },
         formatTime(time) {
             return DateUtils.format(time);

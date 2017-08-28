@@ -27,10 +27,11 @@ const mutations = {
 
 const actions = {
 
-    getNewsDetailContent: ({commit}, newsId) => {
+    getNewsDetailContent: ({commit}, newsObj) => {
         console.log('getNewsDetailContent')
         api.getNewsDetailContents(
-            newsId,
+            newsObj.newsId,
+            newsObj.newsType,
             response => {
                 commit(NEWS_DETAILED, response)
             },

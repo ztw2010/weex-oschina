@@ -94,7 +94,7 @@ const router = new Router({
             ]
         },
         {
-            path: '/newsdetail/:newsId',
+            path: '/newsdetail/:newsId/:newsType',
             name: 'newsdetail',
             component: NewsDetail,
             meta: {

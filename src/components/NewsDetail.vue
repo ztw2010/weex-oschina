@@ -2,39 +2,74 @@
     <div class="newsdetail_div">
         <div class="toolbar_div">
             <mt-header fixed style="background-color: #24cf5f">
-               <mt-button v-on:click="goBack()" icon="back" slot="left">咨讯详情</mt-button>
+               <mt-button v-on:click="goBack()" icon="back" slot="left">{{newsType | transformTitleByType}}</mt-button>
                <div slot="right" class="commnet_div" v-on:click="goCommentList()">
                   <img class="right_img" src="../assets/ic_comment.png" slot="right">
                   <span class="commnet_count">{{newsdetail.commentCount}}</span>
               </div>
             </mt-header>
         </div>
-        <div class="news_content_div">
+        <div v-if="newsType === 4">
+            <div class="news_content_div">
             <div class="title_div">
                 <span class="title_class">{{newsdetail.title}}</span><br/>
                 <span class="author_class">@{{newsdetail.author}}&nbsp;&nbsp;&nbsp;&nbsp;发布于{{new Date(newsdetail.pubDate) | dateFromat('yyyy年MM月dd日')}}</span>
             </div>
             <div v-html="newsdetail.body"></div>
-        </div>
-        <div class="bottom_div" v-on:click="showPoup">
-            <div class="pub_commnet_div">
-                <img class="fav_img" src="../assets/ic_comment_40.png">
-                <span class="pub_comment_span">发表评论</span>
             </div>
-            <img class="fav_img_class" src="../assets/ic_fav_normal.png">
-        </div>
-        <mt-popup v-model="popupVisible" position="bottom" class="poup_class">
-            <div class="poup_input_div">
-                <mt-field class="commnet_input_class" placeholder="发表评论" type="textarea" rows="4" v-model="introduction" disableClear></mt-field>
+            <div class="bottom_div" v-on:click="showPoup">
+                <div class="pub_commnet_div">
+                    <img class="fav_img" src="../assets/ic_comment_40.png">
+                    <span class="pub_comment_span">发表评论</span>
+                </div>
+                <img class="fav_img_class" src="../assets/ic_fav_normal.png">
             </div>
-            <mt-button v-bind:disabled='isDisabled' size="small" type="primary" class="sen_comment_class" @click.native="sendComment">发送</mt-button>
-        </mt-popup>
+            <mt-popup v-model="popupVisible" position="bottom" class="poup_class">
+                <div class="poup_input_div">
+                    <mt-field class="commnet_input_class" placeholder="发表评论" type="textarea" rows="4" v-model="introduction" disableClear></mt-field>
+                </div>
+                <mt-button v-bind:disabled='isDisabled' size="small" type="primary" class="sen_comment_class" @click.native="sendComment">发送</mt-button>
+            </mt-popup>
+        </div>
+        <div v-if="newsType === 1" style="margin-top: 40px;">
+            <div class="type0_top_class">
+                <img v-lazy="newsdetail.imageUrl" class="logo_img_class">
+                <span class="type0_title_class">{{newsdetail.title}}</span>
+            </div>
+            <div class="type0_diver_class"></div>
+            <div class="type0_about_class">
+                <div class="about_item_div_class">
+                    <img class="about_img_class" src="../assets/ic_website.png">
+                    <span class="about_span_class">软件官网</span>
+                </div>
+                <div class="about_item_div_class">
+                    <img class="about_img_class" src="../assets/ic_documents.png">
+                    <span class="about_span_class">软件文档</span>
+                </div>
+            </div>
+            <div class="type0_body_class" v-html="newsdetail.body"></div>
+            <div class="type0_bottom_class">
+                <div class="type0_bottom_item_class">
+                    <img class="item_img_class" src="../assets/ic_comment_40.png">
+                    <span class="item_span_class">评论({{newsdetail.commentCount}})</span>
+                </div>
+                <div class="type0_bottom_item_class">
+                    <img v-if="newsdetail.favorite === 0" class="item_img_class" src="../assets/ic_fav_normal.png">
+                    <img v-else-if="newsdetail.favorite === 1" class="item_img_class" src="../assets/ic_faved_normal.png">
+                    <span class="item_span_class">收藏({{newsdetail.favoriteCount}})</span>
+                </div>
+                <div class="type0_bottom_item_class">
+                    <img class="item_img_class" src="../assets/ic_share_black_pressed.png">
+                    <span class="item_span_class">分享</span>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { Popup, Toast, Indicator,MessageBox,Header } from 'mint-ui'
+import { Popup, Toast, Indicator,MessageBox,Header,Lazyload } from 'mint-ui'
 import * as StringUtils from '../utils/string-utils'
 export default {
     name: "newsdetail",
@@ -43,7 +78,8 @@ export default {
             newsdetail:{},
             popupVisible: false,
             introduction: '',
-            isDisabled: true
+            isDisabled: true,
+            newsType: ''
         };
     },
     computed: {
@@ -58,10 +94,12 @@ export default {
                 this.newsdetail = val
             }
         },
-        '$route.params.newsId' (newsId) {
-            console.log("to=="+newsId);
-            if(typeof(newsId) !== "undefined"){
-                this.getNewsDetail(newsId)
+        '$route.params': function (val, oldVal) {
+            if(val){
+                if(typeof(val.newsId) !== "undefined" && typeof(val.newsType) !== "undefined"){
+                    this.newsType = val.newsType
+                    this.getNewsDetail(val.newsId, val.newsType)
+                }
             }
         },
         introduction(val, oldVal){
@@ -88,16 +126,18 @@ export default {
     },
     created () {
         let vue = this
-        const newsId = vue.$route.params.newsId
-        this.getNewsDetail(newsId)
+        let newsId = vue.$route.params.newsId
+        let newsType = vue.$route.params.newsType
+        this.newsType = newsType
+        this.getNewsDetail(newsId, newsType)
     },
     methods: {
         ...mapActions([
             'getNewsDetailContent',
             'pubCommnet'
         ]),
-        getNewsDetail(newsId){
-            this.getNewsDetailContent(newsId);
+        getNewsDetail(newsId, newsType){
+            this.getNewsDetailContent({newsId, newsType});
         },
         goBack(){
             this.$router.go(-1)
@@ -304,5 +344,133 @@ export default {
     }
 
 
+    /*
+      type=0 begin
+    */
 
+    .type0_top_class{
+        display: flex;
+        padding: 10px;
+        flex-direction: row;
+        width: 100%;
+        height: 50px;
+        align-items: center;
+    }
+
+    .logo_img_class{
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+    }
+
+    .type0_title_class{
+        font-size: 12px;
+        color: #111111;
+        margin-left: 10px;
+        font-weight: bold;
+    }
+
+    .type0_diver_class{
+        background-color: #c8c7cc;
+        width: 100%;
+        height: 1px;
+    }
+
+    .type0_body_class{
+        padding: 10px;
+    }
+
+    .type0_bottom_class{
+        width: 100%;
+        height: 40px;
+        display: flex;
+        flex-direction: row;
+        border-top-width: 0.5px;
+        border-top-color: #c8c7cc;
+        border-top-style: solid;
+        position: fixed;
+        bottom: 0px;
+        z-index: 200;
+        background-color: white;
+        align-items: center;
+    }
+
+    .type0_bottom_item_class{
+        height: 40px;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .item_img_class{
+        width: 20px;
+        height: 20px;
+    }
+
+    .item_span_class{
+        color: #9d9d9d;
+        font-size: 10px;
+        margin-left: 10px;
+    }
+
+    .type0_bottom_item_class:active{
+        background-color: silver;
+    }
+
+    .type0_about_class{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 50px;
+        align-items: center;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .about_item_div_class{
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        border-top-color: #d6d6d6;
+        border-top-style: solid;
+        border-top-width: 0.5px;
+        border-right-color: #d6d6d6;
+        border-right-width: 0.5px;
+        border-right-style: solid;
+        border-bottom-style: solid;
+        border-bottom-width: 0.5px;
+        border-bottom-color: #d6d6d6;
+        margin-top: 10px;
+        border-left-color: #d6d6d6;
+        border-left-width: 0.5px;
+        border-left-style: solid;
+        align-items: center;
+        justify-content: center;
+        margin-left: 5px;
+        height: 50px;
+        background-color: white;
+    }
+
+    .about_item_div_class:active{
+        background-color: #eeeeee;
+    }
+
+    .about_span_class{
+        font-size: 13px;
+        font-weight: bold;
+        color: #111111;
+        margin-left: 10px;
+    }
+
+    .about_img_class{
+        width: 15px;
+        height: 15px;
+    }
+
+    /*
+      type=0 end
+    */
 </style>

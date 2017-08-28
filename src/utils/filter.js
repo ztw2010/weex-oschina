@@ -62,3 +62,14 @@ export const filterName = (str) => {
         return (RegExp.$1);
     }
 }
+
+export const transformTitleByType = (type) => {
+    if(typeof(type) !== 'undefined'){
+        if(type === 1){
+            return "软件详情"
+        } else if(type === 4){
+            return "咨询详情"
+        }
+    }
+    return "咨询详情"
+}

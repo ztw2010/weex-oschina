@@ -3,7 +3,7 @@ import { HOST_CONCIG, API_ROUTER_CONFIG, DEBUG } from '../../api/config/api-conf
 import { logger } from '../../utils/logger'
 import store from '../../store/'
 
-export const getNewsDetailContents = (newsId, okCallback, errorCallback) => {
+export const getNewsDetailContents = (newsId, newsType, okCallback, errorCallback) => {
 
     const accesstoken = store.getters.token.access_token
 
@@ -11,6 +11,7 @@ export const getNewsDetailContents = (newsId, okCallback, errorCallback) => {
         paramsObj: {
             access_token: accesstoken,
             id: newsId,
+            newsType: newsType,
             dataType: 'json'
         },
         methodName: 'getNewsDetail'
