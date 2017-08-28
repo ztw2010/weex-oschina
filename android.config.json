@@ -1,0 +1,8 @@
+
+{
+  "AppName": "WeexVueApp",
+  "AppId": "com.weexlearn.org",
+  "SplashText": "Hello OSChina",
+  "WeexBundle": "http://192.168.2.199:8080/dist/weex/App.js"
+}
+
