@@ -69,6 +69,12 @@ export const transformTitleByType = (type) => {
             return "软件详情"
         } else if(type === 4){
             return "咨询详情"
+        } else if(type === 0){
+            return "开源中国"
+        } else if(type === 2){
+            return "讨论区帖子"
+        } else if(type === 3){
+            return "博客详情"
         }
     }
     return "咨询详情"

@@ -167,6 +167,7 @@
         border-top-color: silver;
         display: flex;
         flex-direction: row;
+        background-color: white;
     }
 
     .bottom_nav{

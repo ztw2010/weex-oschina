@@ -17,19 +17,6 @@
             </div>
             <div v-html="newsdetail.body"></div>
             </div>
-            <div class="bottom_div" v-on:click="showPoup">
-                <div class="pub_commnet_div">
-                    <img class="fav_img" src="../assets/ic_comment_40.png">
-                    <span class="pub_comment_span">发表评论</span>
-                </div>
-                <img class="fav_img_class" src="../assets/ic_fav_normal.png">
-            </div>
-            <mt-popup v-model="popupVisible" position="bottom" class="poup_class">
-                <div class="poup_input_div">
-                    <mt-field class="commnet_input_class" placeholder="发表评论" type="textarea" rows="4" v-model="introduction" disableClear></mt-field>
-                </div>
-                <mt-button v-bind:disabled='isDisabled' size="small" type="primary" class="sen_comment_class" @click.native="sendComment">发送</mt-button>
-            </mt-popup>
         </div>
         <div v-if="newsType === 1" style="margin-top: 40px;">
             <div class="type0_top_class">
@@ -64,13 +51,52 @@
                 </div>
             </div>
         </div>
+        <div v-if="newsType === 3" style="margin-top: 40px;">
+            <div class="type3_top_class">
+                <md-avatar>
+                  <img v-if="newsdetail.imageUrl" v-lazy="newsdetail.imageUrl" class="type3_top_img_class">
+                  <img v-else src="../assets/widget_default_face.png" class="type3_top_img_class">
+                </md-avatar>
+                <div class="type3_top_middle_class">
+                    <span class="type3_top_span_class">{{newsdetail.title}}</span>
+                    <span class="type3_top_span_time_class">{{new Date(newsdetail.pubDate) | dateFromat('yyyy年MM月dd日')}}</span>
+                </div>
+                <div class="type3_top_right_div_class">
+                    <mt-button type="primary" class="type3_top_btn_class" style="background-color: #24cf5f; width: 60px; height: 20px; font-size: 10px; align-items: center">{{newsdetail.isWatched === 1 ? '关注' : '已关注'}}</mt-button>
+                </div>
+            </div>
+            <div class="type3_icon_class">
+                <img v-if="isToday(newsdetail.pubDate)" src="../assets/ic_label_today.png" class="type3_top_img_class">
+                <img class="type3_icon_img_clas" src="../assets/ic_label_originate.png">
+                <img class="type3_icon_img_clas" src="../assets/ic_label_recommend.png">
+            </div>
+            <span class="type3_blog_title_span_class">{{newsdetail.blogTitle}}</span>
+            <div class="type3_blog_body_class" v-html="newsdetail.body"></div>
+        </div>
+
+        <div v-if="newsType === 3 || newsType === 4" class="bottom_div" v-on:click="showPoup">
+                <div class="pub_commnet_div">
+                    <img class="fav_img" src="../assets/ic_comment_40.png">
+                    <span class="pub_comment_span">发表评论</span>
+                </div>
+                <img v-if="newsdetail.favorite === 1" class="fav_img_class" src="../assets/ic_faved_normal.png">
+                <img v-if="newsdetail.favorite === 0" class="fav_img_class" src="../assets/ic_fav_normal.png">
+            </div>
+            <mt-popup v-model="popupVisible" position="bottom" class="poup_class">
+                <div class="poup_input_div">
+                    <mt-field class="commnet_input_class" placeholder="发表评论" type="textarea" rows="4" v-model="introduction" disableClear></mt-field>
+                </div>
+                <mt-button v-bind:disabled='isDisabled' size="small" type="primary" class="sen_comment_class" @click.native="sendComment">发送</mt-button>
+            </mt-popup>
+
     </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { Popup, Toast, Indicator,MessageBox,Header,Lazyload } from 'mint-ui'
+import { Popup, Toast, Indicator,MessageBox,Header,Lazyload, Button } from 'mint-ui'
 import * as StringUtils from '../utils/string-utils'
+import * as DateUtils from '../utils/date-utils'
 export default {
     name: "newsdetail",
     data() {
@@ -156,7 +182,10 @@ export default {
         },
         goCommentList(){
             this.$router.push({ name: 'commentlist' })
-        }
+        },
+        isToday(time) {
+            return DateUtils.isSameDay(time);
+        },
     }
 }
 </script>
@@ -347,7 +376,6 @@ export default {
     /*
       type=0 begin
     */
-
     .type0_top_class{
         display: flex;
         padding: 10px;
@@ -469,8 +497,82 @@ export default {
         width: 15px;
         height: 15px;
     }
-
     /*
       type=0 end
+    */
+
+    /*
+      type=3 begin
+    */
+    .type3_top_class{
+        width: 100%;
+        height: 60px;
+        padding: 10px;
+        background-color: #fcfcfc;
+        border-bottom-style: solid;
+        border-bottom-width: 0.5px;
+        border-bottom-color: #c8c7cc;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .type3_top_img_class{
+        width: 20px;
+        height: 20px;
+        margin-left: 5px;
+    }
+
+    .type3_top_middle_class{
+        display: flex;
+        flex-direction: column;
+        flex: 3;
+        margin-left: 10px;
+    }
+
+    .type3_top_span_class{
+        font-size: 10px;
+        color: #111111;
+    }
+
+    .type3_top_span_time_class{
+        font-size: 10px;
+        color: #6a6a6a;
+    }
+
+    .type3_top_right_div_class{
+        flex: 1;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .type3_icon_class{
+        display: flex;
+        height: 20px;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .type3_icon_img_clas{
+        width: 20px;
+        height: 10px;
+        margin-left: 10px;
+    }
+
+    .type3_blog_title_span_class{
+        font-weight: bold;
+        font-size: 15px;
+        color: #111111;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+
+    .type3_blog_body_class{
+        padding: 10px;
+    }
+
+    /*
+      type=3 end
     */
 </style>
