@@ -72,7 +72,7 @@ export const transformTitleByType = (type) => {
         } else if(type === 0){
             return "开源中国"
         } else if(type === 2){
-            return "讨论区帖子"
+            return "问答详情"
         } else if(type === 3){
             return "博客详情"
         }

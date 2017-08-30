@@ -51,6 +51,19 @@
                 </div>
             </div>
         </div>
+        <div v-if="newsType === 2" style="margin-top: 40px;">
+            <span class="type2_title_class">{{newsdetail.title}}</span>
+            <div v-if="newsdetail.tagBeans" class="type2_tag_div_class">
+                <span class="type2_tag_span_class" v-for="tag in newsdetail.tagBeans">{{tag.tagName}}</span>
+            </div>
+            <div class="type2_body_div" v-html="newsdetail.body"></div>
+            <div class="type2_bottom_div_class">
+                <span class="type2_author_span_class">{{newsdetail.author}}  {{new Date(newsdetail.pubDate) | dateFromat('yyyy年MM月dd日')}}</span>
+                <img class="type2_bottom_img_class" src="../assets/ic_comment.png">
+                <span class="type2_count_span_class">{{newsdetail.commentCount}}</span>
+            </div>
+            <reply_view v-if="newsdetail.replyBeans" v-bind:items="newsdetail.replyBeans"></reply_view>
+        </div>
         <div v-if="newsType === 3" style="margin-top: 40px;">
             <div class="type3_top_class">
                 <md-avatar>
@@ -88,7 +101,6 @@
                 </div>
                 <mt-button v-bind:disabled='isDisabled' size="small" type="primary" class="sen_comment_class" @click.native="sendComment">发送</mt-button>
             </mt-popup>
-
     </div>
 </template>
 
@@ -97,8 +109,10 @@ import { mapActions, mapGetters } from 'vuex'
 import { Popup, Toast, Indicator,MessageBox,Header,Lazyload, Button } from 'mint-ui'
 import * as StringUtils from '../utils/string-utils'
 import * as DateUtils from '../utils/date-utils'
+import reply_view from './comment/reply_view'
 export default {
     name: "newsdetail",
+    components: { reply_view },
     data() {
         return {
             newsdetail:{},
@@ -574,5 +588,73 @@ export default {
 
     /*
       type=3 end
+    */
+
+    /*
+      type=2 begin
+    */
+    .type2_title_class{
+        font-size: 14px;
+        font-weight: bold;
+        color: #111111;
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+    .type2_tag_div_class{
+        display: flex;
+        flex-direction: row;
+        padding: 10px;
+    }
+
+    .type2_tag_span_class{
+        font-size: 8px;
+        color: #9d9d9d;
+        background-color: #f6f6f6;
+        margin-left: 10px;
+        border-top-color: #f6f6f6;
+        border-top-style: solid;
+        border-top-width: 0.5px;
+        border-right-color: #f6f6f6;
+        border-right-width: 0.5px;
+        border-right-style: solid;
+        border-bottom-style: solid;
+        border-bottom-width: 0.5px;
+        border-bottom-color: #f6f6f6;
+        border-left-color: #f6f6f6;
+        border-left-width: 0.5px;
+        border-left-style: solid;
+    }
+
+    .type2_body_div{
+        padding: 10px;
+    }
+
+    .type2_bottom_div_class{
+        display: flex;
+        flex-direction: row;
+        height: 30px;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .type2_author_span_class{
+        color: #9d9d9d;
+        font-size: 8px;
+        flex: 8;
+    }
+
+    .type2_count_span_class{
+        color: #9d9d9d;
+        font-size: 8px;
+    }
+
+    .type2_bottom_img_class{
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+    }
+    /*
+      type=2 end
     */
 </style>

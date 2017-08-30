@@ -5,7 +5,7 @@
             <span class="content_title">{{x.title}}</span>
         </div>
         <div class="content_bottom">
-            <span class="pubtime">@{{x.author}} {{formatTime(x.pubDate)}}</span>
+            <span class="pubtime">@{{x.author}} {{formatTime(x.pubDate)}} type={{x.type}}</span>
             <div class="bottom_right_div">
                 <img class="coment_image" src="../../../assets/ic_comment.png">
                 <span class="coment_num">{{formatNum(x.commentCount)}}</span>
