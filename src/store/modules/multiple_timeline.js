@@ -25,8 +25,8 @@ const mutations = {
     [MULTIPLE_REFRESH](state, refresh) {
         if (refresh) {
             state.option.page = 1
+            state.option.statuses = []
         }
-        state.option.refresh = refresh
         logger('multiple_refresh', state.option.refresh)
     }
 }
@@ -35,16 +35,17 @@ const actions = {
 
     getMultipleTimeline: ({commit}, page) => {
         console.log('getMultipleTimeline')
-        if (page == 1) {
+        if (page == 1){
             commit(MULTIPLE_REFRESH, true)
-        } else {
+        } else{
             commit(MULTIPLE_REFRESH, false)
         }
         api.getMultipleTimeline(
             page,
             response => {
-                commit(MULTIPLE_TIMELINE, response.newslist)
-                commit(MULTIPLE_REFRESH, false)
+                if(response.newslist){
+                    commit(MULTIPLE_TIMELINE, response.newslist)
+                }
             },
             err => {
                 console.log(err);

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import {goAxios} from './baseAxios';
 import { HOST_CONCIG, KEY_CONFIG, API_ROUTER_CONFIG } from '../../api/config/api-config'
 import { logger } from '../../utils/logger'
 
@@ -24,14 +24,14 @@ export const oauthPost = (code, okCallback, errorCallback) => {
             'Content-Type': 'application/json'
         }
     }
-
-    axios(config)
-        .then(function (response) {
-            logger("oauthPost-ok", 'oauthPost response succeed')
-            okCallback(response)
-        })
-        .catch(function (error) {
-            console.log(error);
-            errorCallback(error)
-        })
+    goAxios(config, okCallback, errorCallback);
+    // axios(config)
+    //     .then(function (response) {
+    //         logger("oauthPost-ok", 'oauthPost response succeed')
+    //         okCallback(response)
+    //     })
+    //     .catch(function (error) {
+    //         console.log(error);
+    //         errorCallback(error)
+    //     })
 }

@@ -23,3 +23,6 @@ export const PUB_COMMENT_RESULT = 'pub_comment_result'
 //评论列表
 export const COMMENT_LIST = 'comment_list'
 export const COMMENT_REFRESH = 'comment_list_refresh'
+
+//更新tab页
+export const UPDATE_TAB_PAGE = 'update_tab_page'

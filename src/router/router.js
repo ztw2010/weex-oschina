@@ -134,25 +134,31 @@ router.beforeEach((to, from, next) => {
         })
     }
 
-    store.dispatch('getToken')
-    if (to.meta.requiresAuth) {
-        if (DEBUG) {
-            next()
-        } else {
-            const login = store.getters.login
-            if (login) {
-                next()
-            }
-            else {
-                next({
-                    path: '/splash'
-                })
-            }
-        }
+    let token = store.dispatch('getToken')
+    if(!token){
+        next({
+            path: '/splash'
+        })
     } else {
+        if (to.meta.requiresAuth) {
+            if (DEBUG) {
+                next()
+            } else {
+                const login = store.getters.login
+                if (login) {
+                    next()
+                }
+                else {
+                    next({
+                        path: '/splash'
+                    })
+                }
+            }
+        } else {
+            next()
+        }
         next()
     }
-    next()
 })
 
 router.afterEach((to, from, next) => {

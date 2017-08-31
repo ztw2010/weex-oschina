@@ -41,7 +41,7 @@ const actions = {
         oauthPost(
             code,
             response => {
-                commit(LOGIN, response.data)
+                commit(LOGIN, response)
             },
             err => {
                 console.log(err);

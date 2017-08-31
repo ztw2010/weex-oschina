@@ -1,4 +1,4 @@
-import axios from 'axios';
+import {goAxios} from './baseAxios';
 import { HOST_CONCIG, API_ROUTER_CONFIG, DEBUG } from '../../api/config/api-config'
 import { logger } from '../../utils/logger'
 import store from '../../store/'
@@ -26,16 +26,16 @@ export const getNewsDetailContents = (newsId, newsType, okCallback, errorCallbac
             'Content-Type': 'application/json'
         }
     }
-
-    axios(config)
-        .then(function (response) {
-            logger("oauthPost-ok", 'getNewsDetailContent response succeed')
-            okCallback(response.data)
-        })
-        .catch(function (error) {
-            console.log(error);
-            errorCallback(error)
-        })
+    goAxios(config, okCallback, errorCallback);
+    // axios(config)
+    //     .then(function (response) {
+    //         logger("oauthPost-ok", 'getNewsDetailContent response succeed')
+    //         okCallback(response.data)
+    //     })
+    //     .catch(function (error) {
+    //         console.log(error);
+    //         errorCallback(error)
+    //     })
 }
 
 export const pubComment = (blogId, commentContents, okCallback, errorCallback) => {
@@ -61,14 +61,14 @@ export const pubComment = (blogId, commentContents, okCallback, errorCallback) =
             'Content-Type': 'application/json'
         }
     }
-
-    axios(config)
-        .then(function (response) {
-            logger("oauthPost-ok", 'pubComment response succeed')
-            okCallback(response.data)
-        })
-        .catch(function (error) {
-            console.log(error);
-            errorCallback(error)
-        })
+    goAxios(config, okCallback, errorCallback);
+    // axios(config)
+    //     .then(function (response) {
+    //         logger("oauthPost-ok", 'pubComment response succeed')
+    //         okCallback(response.data)
+    //     })
+    //     .catch(function (error) {
+    //         console.log(error);
+    //         errorCallback(error)
+    //     })
 }

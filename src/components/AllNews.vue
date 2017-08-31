@@ -1,22 +1,39 @@
 <template lang="html">
-    <div class="allnews">
-        <div class="list"  v-for="(x, index) in list">
-            <pixel-content :x="x"></pixel-content>
-            <div v-bind:class="index !== list.length - 1 ? 'split' : ''"></div>
-        </div>
-        <div class="refresh-footer" v-if="option.refresh">
-            <pixel-spinner :size="'45px'" :color="'#007AFF'"></pixel-spinner>
-        </div>
+    <div class="page_loadmore_wrapper" ref="wrapper" >
+        <mt-loadmore ref="loadmore" style="height: 100%" :top-method="loadTop" @top-status-change="handleTopChange"
+            :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" :autoFill="autoFill">
+            <div class="list" v-for="(x, index) in list">
+                <pixel-content :x="x"></pixel-content>
+                <div v-bind:class="index !== list.length - 1 ? 'split' : ''"></div>
+            </div>
+            <div slot="top" class="mint-loadmore-top">
+                <span v-show="topStatus !== 'loading'" :class="{ 'is-rotate': topStatus === 'drop' }">↓</span>
+                <span v-show="topStatus === 'loading'">
+                    <mt-spinner type="snake"></mt-spinner>
+                </span>
+            </div>
+            <div slot="bottom" class="mint-loadmore-bottom">
+                <span v-show="bottomStatus !== 'loading'" :class="{ 'is-rotate': bottomStatus === 'drop' }">↑</span>
+                <span v-show="bottomStatus === 'loading'">
+                    <mt-spinner type="snake"></mt-spinner>
+                </span>
+            </div>
+        </mt-loadmore>
     </div>
 </template>
 
 <script>
     import { mapActions, mapGetters } from 'vuex'
+    import { Loadmore,Indicator } from 'mint-ui'
     export default {
         name: "allnews",
         data() {
             return {
-                list: []
+                list: [],
+                topStatus: '',
+                bottomStatus: '',
+                allLoaded: false,
+                autoFill: false,
             };
         },
         computed: {
@@ -35,6 +52,12 @@
                 deep: true
             },
             statuses: function (val, oldVal) {
+                if(this.topStatus === 'loading'){
+                    this.$refs.loadmore.onTopLoaded()
+                }
+                if(this.bottomStatus === 'loading'){
+                    this.$refs.loadmore.onBottomLoaded()
+                }
                 if (val) {
                     if (this.option.page == 1) {
                         this.list = val;
@@ -50,12 +73,6 @@
         mounted() {
 
         },
-        activated() {
-            window.addEventListener('scroll', this.scrollBar)
-        },
-        deactivated() {
-            window.removeEventListener('scroll', this.scrollBar)
-        },
         methods: {
             ...mapActions([
                 'getMultipleTimeline'
@@ -63,30 +80,29 @@
             multipleTimeline(page) {
                 this.getMultipleTimeline(page)
             },
-            loadMore() {
+            loadTop() {
                 let vue = this
-                vue.option.refresh = true
-                var page = vue.option.page + 1
+                this.multipleTimeline(1)
+            },
+            loadBottom() {
+                let vue = this
+                var page = vue.option.page
                 vue.multipleTimeline(page)
             },
-            scrollBar() {
-                var vue = this
-                var a = document.documentElement.scrollTop == 0 ? document.body.clientHeight : document.documentElement.clientHeight;
-                var b = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
-                var c = document.documentElement.scrollTop == 0 ? document.body.scrollHeight : document.documentElement.scrollHeight;
-                if (a + b == c && !this.showImage) {
-                    this.loadMore()
-                }
-            }
+            handleTopChange(status) {
+                this.topStatus = status
+            },
+            handleBottomChange(status) {
+                this.bottomStatus = status;
+            },
         }
     }
 </script>
 
 <style lang="css">
 
-    .allnews{
-        width: 100%;
-        height: 100%;
+    .page_loadmore_wrapper {
+        overflow: scroll;
     }
 
     .list {
@@ -95,17 +111,37 @@
         padding: 1px;
     }
 
-    .refresh-footer {
-        margin-bottom: 8px;
-        margin-top: 8px;
-        text-align: center;
-    }
-
     .split{
         width: 100%;
         height: 1px;
         background-color: silver;
         margin-left: 10px;
+    }
+
+    .mint-loadmore-top span {
+        -webkit-transition: .2s linear;
+        transition: .2s linear
+    }
+    .mint-loadmore-top span {
+        display: inline-block;
+        vertical-align: middle
+    }
+
+    .mint-loadmore-top span.is-rotate {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg)
+    }
+
+    .mint-loadmore-bottom span {
+        display: inline-block;
+        -webkit-transition: .2s linear;
+        transition: .2s linear;
+        vertical-align: middle
+    }
+
+    .mint-loadmore-bottom span.is-rotate {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg)
     }
 
 </style>

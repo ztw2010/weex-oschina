@@ -11,11 +11,11 @@
         </div>
         <div v-if="newsType === 4">
             <div class="news_content_div">
-            <div class="title_div">
-                <span class="title_class">{{newsdetail.title}}</span><br/>
-                <span class="author_class">@{{newsdetail.author}}&nbsp;&nbsp;&nbsp;&nbsp;发布于{{new Date(newsdetail.pubDate) | dateFromat('yyyy年MM月dd日')}}</span>
-            </div>
-            <div v-html="newsdetail.body"></div>
+                <div class="title_div">
+                    <span class="title_class">{{newsdetail.title}}</span><br/>
+                    <span class="author_class">@{{newsdetail.author}}&nbsp;&nbsp;&nbsp;&nbsp;发布于{{new Date(newsdetail.pubDate) | dateFromat('yyyy年MM月dd日')}}</span>
+                </div>
+                <div v-html="newsdetail.body"></div>
             </div>
         </div>
         <div v-if="newsType === 1" style="margin-top: 40px;">
@@ -86,8 +86,15 @@
             <span class="type3_blog_title_span_class">{{newsdetail.blogTitle}}</span>
             <div class="type3_blog_body_class" v-html="newsdetail.body"></div>
         </div>
-
-        <div v-if="newsType === 3 || newsType === 4" class="bottom_div" v-on:click="showPoup">
+        <div v-if="newsType === 7" style="margin-top: 40px;">
+            <span class="title_class">{{newsdetail.title}}</span><br/>
+            <span class="author_class">@{{newsdetail.author}}&nbsp;&nbsp;&nbsp;&nbsp;发布于{{new Date(newsdetail.pubDate) | dateFromat('yyyy年MM月dd日')}}</span>
+            <div class="type7_body_div_class" v-html="newsdetail.body"></div>
+        </div>
+        <div v-if="newsType === 0" style="margin-top: 40px;">
+            <div v-html="newsdetail.body" style="padding: 10px"></div>
+        </div>
+        <div v-if="newsType === 3 || newsType === 4 || newsType === 7" class="bottom_div" v-on:click="showPoup">
                 <div class="pub_commnet_div">
                     <img class="fav_img" src="../assets/ic_comment_40.png">
                     <span class="pub_comment_span">发表评论</span>
@@ -653,6 +660,17 @@ export default {
         width: 20px;
         height: 20px;
         margin-right: 5px;
+    }
+    /*
+      type=2 end
+    */
+
+    /*
+       type=2 begin
+    */
+    .type7_body_div_class{
+        padding: 10px;
+        padding-bottom: 40px;
     }
     /*
       type=2 end

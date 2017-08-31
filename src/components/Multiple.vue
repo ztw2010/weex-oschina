@@ -16,6 +16,7 @@
 </template>
 
 <script>
+    import { mapActions, mapGetters } from 'vuex'
     export default {
         name: "multiple",
         data() {
@@ -26,7 +27,22 @@
         created() {
             this.showAllNewsPage()
         },
+        computed: {
+            ...mapGetters({
+                tabPage: 'tab_page'
+            })
+        },
+        watch: {
+            '$route': function (val, oldVal) { //恢复显示之前的tab页
+                if(val && val.name === 'multiple'){
+                    this.switchTab(this.tabPage)
+                }
+            }
+        },
         methods: {
+            ...mapActions([
+                'updateTabPage'
+            ]),
             showAllNewsPage(){
                 this.$router.push({ name: 'allnews' })
                 this.currentPage = 'all_news'
@@ -55,6 +71,7 @@
                         vue.showAllNewsPage()
                         break;
                 }
+                this.updateTabPage(tab)
             }
         }
     }

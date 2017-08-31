@@ -67,7 +67,7 @@ export const transformTitleByType = (type) => {
     if(typeof(type) !== 'undefined'){
         if(type === 1){
             return "软件详情"
-        } else if(type === 4){
+        } else if(type === 4 || type === 7){
             return "咨询详情"
         } else if(type === 0){
             return "开源中国"

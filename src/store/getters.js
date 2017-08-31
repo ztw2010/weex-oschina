@@ -23,3 +23,6 @@ export const pub_comment_result = state => state.news_detail.pubCommentResult
 //获取评论列表
 export const comment_list = state => state.comment_list.commentList
 export const comment_list_option = state => state.comment_list.option
+
+//获取tab页
+export const tab_page = state => state.multiple.tabPage
