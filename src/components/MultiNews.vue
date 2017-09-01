@@ -1,22 +1,17 @@
 <template lang="html">
-    <div class="discovery">
-        <div class="list"  v-for="(x, index) in list">
-            <pixel-content :x="x"></pixel-content>
-            <div v-bind:class="index !== list.length - 1 ? 'split' : ''"></div>
-        </div>
-        <div class="refresh-footer" v-if="option.refresh">
-            <pixel-spinner :size="'45px'" :color="'#007AFF'"></pixel-spinner>
-        </div>
-    </div>
+    <news_list v-bind:list="list" v-bind:isComplete="isComplete" v-on:loadTop="loadTop" v-on:loadBottom="loadBottom"></news_list>
 </template>
 
 <script>
     import { mapActions, mapGetters } from 'vuex'
+    import news_list from './comment/news_list'
     export default {
         name: "multinews",
+        components: { news_list },
         data() {
             return {
-                list: []
+                list: [],
+                isComplete: true
             };
         },
         computed: {
@@ -35,6 +30,7 @@
                 deep: true
             },
             statuses: function (val, oldVal) {
+                this.isComplete = true
                 if (val) {
                     if (this.option.page == 1) {
                         this.list = val;
@@ -50,12 +46,6 @@
         mounted() {
 
         },
-        activated() {
-            window.addEventListener('scroll', this.scrollBar)
-        },
-        deactivated() {
-            window.removeEventListener('scroll', this.scrollBar)
-        },
         methods: {
             ...mapActions([
                 'getMultipleMultipleNews'
@@ -63,48 +53,22 @@
             multipleNews(page) {
                 this.getMultipleMultipleNews(page)
             },
-            loadMore() {
+            loadTop() {
                 let vue = this
-                vue.option.refresh = true
-                var page = vue.option.page + 1
-                vue.multipleNews(page)
+                vue.isComplete = false
+                this.getMultipleMultipleNews(1)
             },
-            scrollBar() {
-                var vue = this
-                var a = document.documentElement.scrollTop == 0 ? document.body.clientHeight : document.documentElement.clientHeight;
-                var b = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop;
-                var c = document.documentElement.scrollTop == 0 ? document.body.scrollHeight : document.documentElement.scrollHeight;
-                if (a + b == c && !this.showImage) {
-                    this.loadMore()
-                }
+            loadBottom() {
+                let vue = this
+                vue.isComplete = false
+                var page = vue.option.page
+                vue.getMultipleMultipleNews(page)
             }
         }
     }
 </script>
 
 <style lang="css">
-    .discovery{
-        width: 100%;
-        height: 100%;
-    }
 
-    .list {
-        background-color: #fff;
-        border-radius: 2px;
-        padding: 1px;
-    }
-
-    .refresh-footer {
-        margin-bottom: 8px;
-        margin-top: 8px;
-        text-align: center;
-    }
-
-    .split{
-        width: 100%;
-        height: 1px;
-        background-color: silver;
-        margin-left: 10px;
-    }
 
 </style>
