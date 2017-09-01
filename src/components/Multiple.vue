@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="multiple">
+    <div>
         <nav class="sub_category_nav">
             <span class="tab-tag" v-on:click="switchTab('all_news')" :class="currentPage == 'all_news'?'tab-select':''">所有</span>
             <span class="tab-tag" v-on:click="switchTab('multiple_news')" :class="currentPage == 'multiple_news'?'tab-select':''">综合新闻</span>
@@ -79,16 +79,10 @@
 
 <style lang="css">
 
-    .multiple{
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-
     .sub_category_nav{
         position: fixed;
         top: 40px;
+        left: 0px;
         width: 100%;
         height: 30px;
         background-color: #F6F6F6;

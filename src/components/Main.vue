@@ -1,9 +1,8 @@
 <template lang="html">
     <div class="main">
-        <div class="main_top">
-            <span class="top_title">{{title}}</span>
-            <img class="top_image" src="../assets/actionbar_search_icon.png">
-        </div>
+        <mt-header fixed :title="title" style="background-color: #24cf5f">
+            <img class="top_image" slot="right" src="../assets/actionbar_search_icon.png">
+        </mt-header>
         <div class="main_content">
             <transition name="fade">
                 <keep-alive>
@@ -120,18 +119,6 @@
         flex-direction: column;
     }
 
-    .main_top{
-        position: fixed;
-        top: 0px;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        background-color: #24cf5f;
-        height: 40px;
-        justify-content: center;
-        align-items: center;
-    }
-
     .top_title{
         display: flex;
         width: 100px;
@@ -143,17 +130,14 @@
     }
 
     .top_image{
-        position: absolute;
-        right: 5px;
-        top: auto;
         width: 30px;
         height: 30px;
     }
 
     .main_content{
         width: 100%;
-        flex: 9;
-        margin-top: 75px;
+        flex: 4;
+        margin-top: 70px;
         margin-bottom: 70px;
     }
 

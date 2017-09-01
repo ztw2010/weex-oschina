@@ -18,7 +18,7 @@
                 <div v-html="newsdetail.body"></div>
             </div>
         </div>
-        <div v-if="newsType === 1" style="margin-top: 40px;">
+        <div v-else-if="newsType === 1" style="margin-top: 40px;">
             <div class="type0_top_class">
                 <img v-lazy="newsdetail.imageUrl" class="logo_img_class">
                 <span class="type0_title_class">{{newsdetail.title}}</span>
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="newsType === 2" style="margin-top: 40px;">
+        <div v-else-if="newsType === 2" style="margin-top: 40px;">
             <span class="type2_title_class">{{newsdetail.title}}</span>
             <div v-if="newsdetail.tagBeans" class="type2_tag_div_class">
                 <span class="type2_tag_span_class" v-for="tag in newsdetail.tagBeans">{{tag.tagName}}</span>
@@ -64,7 +64,7 @@
             </div>
             <reply_view v-if="newsdetail.replyBeans" v-bind:items="newsdetail.replyBeans"></reply_view>
         </div>
-        <div v-if="newsType === 3" style="margin-top: 40px;">
+        <div v-else-if="newsType === 3" style="margin-top: 40px;">
             <div class="type3_top_class">
                 <md-avatar>
                   <img v-if="newsdetail.imageUrl" v-lazy="newsdetail.imageUrl" class="type3_top_img_class">
@@ -86,7 +86,7 @@
             <span class="type3_blog_title_span_class">{{newsdetail.blogTitle}}</span>
             <div class="type3_blog_body_class" v-html="newsdetail.body"></div>
         </div>
-        <div v-if="newsType === 7" style="margin-top: 40px;">
+        <div v-else-if="newsType === 7" style="margin-top: 40px;">
             <span class="title_class">{{newsdetail.title}}</span><br/>
             <span class="author_class">@{{newsdetail.author}}&nbsp;&nbsp;&nbsp;&nbsp;发布于{{new Date(newsdetail.pubDate) | dateFromat('yyyy年MM月dd日')}}</span>
             <div class="type7_body_div_class" v-html="newsdetail.body"></div>
@@ -143,7 +143,7 @@ export default {
         },
         '$route.params': function (val, oldVal) {
             if(val){
-                if(typeof(val.newsId) !== "undefined" && typeof(val.newsType) !== "undefined"){
+                if(typeof(val.newsId) !== "undefined" && typeof(val.newsType) !== "undefined" && typeof(oldVal.newsId) === "undefined"){//typeof(oldVal.newsId) === "undefined"从评论列表返回到详情页时不需要重新加载数据
                     this.newsType = val.newsType
                     this.getNewsDetail(val.newsId, val.newsType)
                 }

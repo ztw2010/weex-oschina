@@ -14,7 +14,7 @@ import CommentList from '../components/CommentList'
 
 import store from '../store/'
 import * as scrollUtils from '../utils/scroll-position'
-import { DEBUG } from '../api/config/api-config'
+import {DEBUG} from '../api/config/api-config'
 
 Vue.use(Router)
 
@@ -134,31 +134,25 @@ router.beforeEach((to, from, next) => {
         })
     }
 
-    let token = store.dispatch('getToken')
-    if(!token){
-        next({
-            path: '/splash'
-        })
-    } else {
-        if (to.meta.requiresAuth) {
-            if (DEBUG) {
-                next()
-            } else {
-                const login = store.getters.login
-                if (login) {
-                    next()
-                }
-                else {
-                    next({
-                        path: '/splash'
-                    })
-                }
-            }
-        } else {
+    store.dispatch('getToken')
+    if (to.meta.requiresAuth) {
+        if (DEBUG) {
             next()
+        } else {
+            const login = store.getters.login
+            if (login) {
+                next()
+            }
+            else {
+                next({
+                    path: '/splash'
+                })
+            }
         }
+    } else {
         next()
     }
+    next()
 })
 
 router.afterEach((to, from, next) => {
