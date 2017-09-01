@@ -196,7 +196,7 @@
                     Toast("请输入评论内容");
                 } else {
                     Indicator.open('加载中...');
-                    if(!StringUtils.isNull(vue.replyObj)){
+                    if(!StringUtils.isNull(this.replyObj)){
 
                     } else {
                         this.pubCommnet(this.newsdetail.id, this.introduction)
