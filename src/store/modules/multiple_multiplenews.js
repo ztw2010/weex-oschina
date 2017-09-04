@@ -14,12 +14,14 @@ const state = {
 
 const mutations = {
 
-    [MULTIPLE_MULTIPLENEWS](state, data) {
-        if(state.option.page === 1){
+    [MULTIPLE_MULTIPLENEWS](state, obj) {
+        if(obj.page === 1){
             state.statuses = []
+            state.option.page = 2
+        } else {
+            state.option.page ++
         }
-        state.statuses = data
-        state.option.page++
+        state.statuses = obj.newslist
         logger('multiple_timeline', 'save store succeed !')
     }
 }
@@ -31,7 +33,7 @@ const actions = {
         api.getMultipleMultipleNews(
             page,
             response => {
-                commit(MULTIPLE_MULTIPLENEWS, response.newslist)
+                commit(MULTIPLE_MULTIPLENEWS, {'newslist' : response.newslist, 'page' : page})
             },
             err => {
                 console.log(err);

@@ -2,15 +2,16 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '../components/Main'
 import Splash from '../components/Splash'
-import Multiple from '../components/Multiple'
-import AllNews from '../components/AllNews'
-import MultiNews from '../components/MultiNews'
-import SoftUpdate from '../components/SoftUpdate'
-import Tweet from '../components/Tweet'
+import Multiple from '../components/multi/Multiple'
+import AllNews from '../components/multi/AllNews'
+import MultiNews from '../components/multi/MultiNews'
+import SoftUpdate from '../components/multi/SoftUpdate'
+import Tweet from '../components/tweet/Tweet'
 import NewsDetail from '../components/NewsDetail'
 import Discovery from '../components/Discovery'
 import Mine from '../components/Mine'
 import CommentList from '../components/CommentList'
+import RecentTweet from '../components/tweet/RecentTweet'
 
 import store from '../store/'
 import * as scrollUtils from '../utils/scroll-position'
@@ -73,7 +74,17 @@ const router = new Router({
                     component: Tweet,
                     meta: {
                         requiresAuth: true
-                    }
+                    },
+                    children: [
+                        {
+                            path: 'recentweet',
+                            name: 'recentweet',
+                            component: RecentTweet,
+                            meta: {
+                                requiresAuth: true
+                            }
+                        }
+                    ]
                 },
                 {
                     path: 'discovery',

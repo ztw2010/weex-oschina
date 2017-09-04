@@ -4,9 +4,9 @@
 
 <script>
     import { mapActions, mapGetters } from 'vuex'
-    import news_list from './comment/news_list'
+    import news_list from '../comment/news_list'
     export default {
-        name: "multinews",
+        name: "softupdate",
         components: { news_list },
         data() {
             return {
@@ -16,8 +16,8 @@
         },
         computed: {
             ...mapGetters({
-                statuses: 'multiple_multiplenews_statuses',
-                option: 'multiple_multiplenews_option'
+                statuses: 'multiple_softupdatenews_statuses',
+                option: 'multiple_softupdatenews_option'
             })
         },
         watch: {
@@ -41,34 +41,33 @@
             }
         },
         created() {
-            this.multipleNews(1)
+            this.softUpdateNews(1)
         },
         mounted() {
 
         },
         methods: {
             ...mapActions([
-                'getMultipleMultipleNews'
+                'getSoftUpdateNews'
             ]),
-            multipleNews(page) {
-                this.getMultipleMultipleNews(page)
+            softUpdateNews(page) {
+                this.getSoftUpdateNews(page)
             },
             loadTop() {
                 let vue = this
                 vue.isComplete = false
-                this.getMultipleMultipleNews(1)
+                this.getSoftUpdateNews(1)
             },
             loadBottom() {
                 let vue = this
                 vue.isComplete = false
                 var page = vue.option.page
-                vue.getMultipleMultipleNews(page)
+                vue.getSoftUpdateNews(page)
             }
         }
     }
 </script>
 
 <style lang="css">
-
 
 </style>

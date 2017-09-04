@@ -1,14 +1,12 @@
 <template lang="html">
-
     <news_list v-bind:list="list" v-bind:isComplete="isComplete" v-on:loadTop="loadTop" v-on:loadBottom="loadBottom"></news_list>
-
 </template>
 
 <script>
     import { mapActions, mapGetters } from 'vuex'
-    import news_list from './comment/news_list'
+    import news_list from '../comment/news_list'
     export default {
-        name: "allnews",
+        name: "multinews",
         components: { news_list },
         data() {
             return {
@@ -18,8 +16,8 @@
         },
         computed: {
             ...mapGetters({
-                statuses: 'multiple_timeline',
-                option: 'multiple_option'
+                statuses: 'multiple_multiplenews_statuses',
+                option: 'multiple_multiplenews_option'
             })
         },
         watch: {
@@ -43,28 +41,28 @@
             }
         },
         created() {
-            this.multipleTimeline(1)
+            this.multipleNews(1)
         },
         mounted() {
 
         },
         methods: {
             ...mapActions([
-                'getMultipleTimeline'
+                'getMultipleMultipleNews'
             ]),
-            multipleTimeline(page) {
-                this.getMultipleTimeline(page)
+            multipleNews(page) {
+                this.getMultipleMultipleNews(page)
             },
             loadTop() {
                 let vue = this
                 vue.isComplete = false
-                this.multipleTimeline(1)
+                this.getMultipleMultipleNews(1)
             },
             loadBottom() {
                 let vue = this
                 vue.isComplete = false
                 var page = vue.option.page
-                vue.multipleTimeline(page)
+                vue.getMultipleMultipleNews(page)
             }
         }
     }

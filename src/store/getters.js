@@ -26,3 +26,6 @@ export const comment_list_option = state => state.comment_list.option
 
 //获取tab页
 export const tab_page = state => state.multiple.tabPage
+
+export const recent_tweet_list = state => state.recent_tweet.statuses
+export const recent_tweet_option = state => state.recent_tweet.option

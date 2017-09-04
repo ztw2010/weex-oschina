@@ -1,9 +1,9 @@
 import {
-    MULTIPLE_SOFTUPDATENEWS
-} from '../mutations-type'
+    RECENT_TWEET
+} from '../../mutations-type'
 
-import * as api from '../../api/impl/multiple-softupdatenews'
-import {logger} from '../../utils/logger'
+import * as api from '../../../api/impl/tweet/tweet-impl'
+import {logger} from '../../../utils/logger'
 
 const state = {
     statuses: [],
@@ -14,26 +14,26 @@ const state = {
 
 const mutations = {
 
-    [MULTIPLE_SOFTUPDATENEWS](state, obj) {
+    [RECENT_TWEET](state, obj) {
         if(obj.page === 1){
             state.statuses = []
             state.option.page = 2
         } else {
             state.option.page ++
         }
-        state.statuses = obj.newslist
+        state.statuses = obj.tweetlist
         logger('multiple_timeline', 'save store succeed !')
     }
 }
 
 const actions = {
 
-    getSoftUpdateNews: ({commit}, page) => {
-        console.log('getMultipleTimeline')
-        api.getSoftUpdateNews(
+    getRecentTweetList: ({commit}, page) => {
+        console.log('getRecentTweetList')
+        api.getTweetList(
             page,
             response => {
-                commit(MULTIPLE_SOFTUPDATENEWS, {'newslist' : response.newslist, 'page' : page})
+                commit(RECENT_TWEET, {'tweetlist' : response.tweetlist, 'page' : page})
             },
             err => {
                 console.log(err);

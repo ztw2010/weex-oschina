@@ -23,3 +23,6 @@ export const COMMENT_REFRESH = 'comment_list_refresh'
 
 //更新tab页
 export const UPDATE_TAB_PAGE = 'update_tab_page'
+
+//最新动弹
+export const RECENT_TWEET = 'recent_tweet'

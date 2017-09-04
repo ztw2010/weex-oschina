@@ -1,9 +1,9 @@
 <template lang="html">
     <div>
         <nav class="sub_category_nav">
-            <span class="tab-tag" v-on:click="switchTab('all_news')" :class="currentPage == 'all_news'?'tab-select':''">所有</span>
-            <span class="tab-tag" v-on:click="switchTab('multiple_news')" :class="currentPage == 'multiple_news'?'tab-select':''">综合新闻</span>
-            <span class="tab-tag" v-on:click="switchTab('softupdate_news')" :class="currentPage == 'softupdate_news'?'tab-select':''">软件更新</span>
+            <span class="tab-tag" v-on:click="switchTab('all_news')" :class="currentPage === 'all_news'?'tab-select':''">所有</span>
+            <span class="tab-tag" v-on:click="switchTab('multiple_news')" :class="currentPage === 'multiple_news'?'tab-select':''">综合新闻</span>
+            <span class="tab-tag" v-on:click="switchTab('softupdate_news')" :class="currentPage === 'softupdate_news'?'tab-select':''">软件更新</span>
         </nav>
         <div class="multiple-content">
             <transition name="fade">
@@ -25,7 +25,7 @@
             };
         },
         created() {
-            this.showAllNewsPage()
+            this.switchTab('all_news')
         },
         computed: {
             ...mapGetters({
@@ -45,17 +45,15 @@
             ]),
             showAllNewsPage(){
                 this.$router.push({ name: 'allnews' })
-                this.currentPage = 'all_news'
             },
             showMultipleNewsPage(){
                 this.$router.push({ name: 'multinews' })
-                this.currentPage = 'multiple_news'
             },
             showSoftupdateNewsPage(){
                 this.$router.push({ name: 'softupdate' })
-                this.currentPage = 'softupdate_news'
             },
             switchTab(tab){
+                this.currentPage = tab
                 var vue = this
                 switch (tab) {
                     case 'all_news':

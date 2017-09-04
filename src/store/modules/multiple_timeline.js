@@ -14,12 +14,14 @@ const state = {
 
 const mutations = {
 
-    [MULTIPLE_TIMELINE](state, data) {
-        if(state.option.page === 1){
+    [MULTIPLE_TIMELINE](state, obj) {
+        if(obj.page === 1){
             state.statuses = []
+            state.option.page = 2
+        } else {
+            state.option.page ++
         }
-        state.statuses = data
-        state.option.page++
+        state.statuses = obj.newslist
         logger('multiple_timeline', 'save store succeed !')
     }
 }
@@ -32,7 +34,7 @@ const actions = {
             page,
             response => {
                 if(response.newslist){
-                    commit(MULTIPLE_TIMELINE, response.newslist)
+                    commit(MULTIPLE_TIMELINE, {'newslist' : response.newslist, 'page' : page})
                 }
             },
             err => {
