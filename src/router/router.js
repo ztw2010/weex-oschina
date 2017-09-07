@@ -9,10 +9,11 @@ import SoftUpdate from '../components/multi/SoftUpdate'
 import Tweet from '../components/tweet/Tweet'
 import NewsDetail from '../components/NewsDetail'
 import Discovery from '../components/Discovery'
-import Mine from '../components/Mine'
+import Mine from '../components/mine/Mine'
 import CommentList from '../components/CommentList'
 import RecentTweet from '../components/tweet/RecentTweet'
-
+import HotTweet from '../components/tweet/HotTweet'
+import MineTweet from '../components/tweet/MineTweet'
 import store from '../store/'
 import * as scrollUtils from '../utils/scroll-position'
 import {DEBUG} from '../api/config/api-config'
@@ -80,6 +81,22 @@ const router = new Router({
                             path: 'recentweet',
                             name: 'recentweet',
                             component: RecentTweet,
+                            meta: {
+                                requiresAuth: true
+                            }
+                        },
+                        {
+                            path: 'hottweet',
+                            name: 'hottweet',
+                            component: HotTweet,
+                            meta: {
+                                requiresAuth: true
+                            }
+                        },
+                        {
+                            path: 'minetweet',
+                            name: 'minetweet',
+                            component: MineTweet,
                             meta: {
                                 requiresAuth: true
                             }

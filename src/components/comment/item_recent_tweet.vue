@@ -7,8 +7,11 @@
         <div class="item_right_div_class">
           <span class="item_name_span_class">{{item.author}}</span>
           <span class="item_body_span_class" v-html="item.body"></span>
-          <div v-if="item.imgSmall" class="item_pic_div_class">
-            <img v-lazy="item.imgSmall" class="item_img_big_class">
+          <div v-if="item.imgSmallList" class="item_pic_div_class">
+            <img v-for="smallImg in item.imgSmallList" v-lazy="smallImg" class="item_img_small_class">
+          </div>
+          <div v-else-if="item.imgSmall" class="item_pic_div_class">
+            <img v-lazy="item.imgSmall" class="item_img_small_class">
           </div>
           <div class="item_bottom_div_class">
             <span class="item_time_span_class">{{ item.pubDate | timeAgo }}</span>
@@ -27,7 +30,7 @@
           </div>
         </div>
       </div>
-      <div class="item_diver_div_class" v-show="isLast"></div>
+      <div class="item_diver_div_class" v-show="!isLast"></div>
   </div>
 </template>
 
@@ -36,16 +39,16 @@
     display: flex;
     flex-direction: column;
     background-color: white;
-    padding-left: 10px;
-    padding-top: 5px;
-    padding-right: 10px;
-    padding-bottom: 5px;
+    margin-top: 5px;
   }
 
   .item_top_div_class{
     display: flex;
     flex-direction: row;
-    width: 100%;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
   }
 
   .item_img_class{
@@ -105,8 +108,9 @@
   }
 
   .item_diver_div_class{
-    height: 3px;
-    color: #c8c7cc;
+    height: 1px;
+    background-color: #c8c7cc;
+    margin-left: 10px;
   }
 
   .item_pic_div_class{
@@ -114,6 +118,13 @@
     display: flex;
     flex-direction: row;
     margin-top: 5px;
+    height: 100px;
+  }
+
+  .item_img_small_class{
+    width: 100px;
+    height: 100px;
+    margin-left: 10px;
   }
 
 </style>
@@ -129,6 +140,11 @@
           isLast: {
               type: Boolean,
               default: false
+          }
+      },
+      data() {
+          return {
+
           }
       },
   }

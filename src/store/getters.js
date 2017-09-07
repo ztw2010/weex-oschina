@@ -27,5 +27,13 @@ export const comment_list_option = state => state.comment_list.option
 //获取tab页
 export const tab_page = state => state.multiple.tabPage
 
+//最新动弹
 export const recent_tweet_list = state => state.recent_tweet.statuses
 export const recent_tweet_option = state => state.recent_tweet.option
+
+//热门动弹
+export const hot_tweet_list = state => state.hot_tweet.statuses
+export const hot_tweet_option = state => state.hot_tweet.option
+
+//个人信息
+export const mine_info = state => state.mine.mineInfo

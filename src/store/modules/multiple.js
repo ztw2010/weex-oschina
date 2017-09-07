@@ -8,18 +8,28 @@ import {
 } from '../mutations-type'
 
 const state = {
-    tabPage: ''
+    tabPage: {
+        'multiple': '',
+        'tweet': ''
+    }
 }
 
 const mutations = {
-    [UPDATE_TAB_PAGE](state, tabPage) {
-        state.tabPage = tabPage
+    [UPDATE_TAB_PAGE](state, obj) {
+        switch (obj.moduleName){
+            case 'multiple':
+                state.tabPage.multiple = obj.tabName
+                break;
+            case 'tweet':
+                state.tabPage.tweet = obj.tabName
+                break;
+        }
     }
 }
 
 const actions = {
-    updateTabPage: ({ commit }, tabPage) => {
-        commit(UPDATE_TAB_PAGE, tabPage)
+    updateTabPage: ({ commit }, obj) => {
+        commit(UPDATE_TAB_PAGE, obj)
     }
 }
 

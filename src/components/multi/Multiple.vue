@@ -35,7 +35,7 @@
         watch: {
             '$route': function (val, oldVal) { //恢复显示之前的tab页
                 if(val && val.name === 'multiple'){
-                    this.switchTab(this.tabPage)
+                    this.switchTab(this.tabPage.multiple)
                 }
             }
         },
@@ -69,7 +69,7 @@
                         vue.showAllNewsPage()
                         break;
                 }
-                this.updateTabPage(tab)
+                this.updateTabPage({'moduleName' : 'multiple', 'tabName' : tab})
             }
         }
     }

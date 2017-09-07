@@ -24,7 +24,7 @@
     import { Indicator } from 'mint-ui'
     import item_recent_tweet from '../comment/item_recent_tweet'
     export default {
-        name: "recentTweet",
+        name: "hotTweet",
         components: { item_recent_tweet },
         data() {
             return {
@@ -37,8 +37,8 @@
         },
         computed: {
             ...mapGetters({
-                statuses: 'recent_tweet_list',
-                option: 'recent_tweet_option'
+                statuses: 'hot_tweet_list',
+                option: 'hot_tweet_option'
             })
         },
         watch: {
@@ -68,24 +68,24 @@
             }
         },
         created() {
-            this.recentTweet(1)
+            this.hotTweet(1)
         },
         mounted() {
 
         },
         methods: {
             ...mapActions([
-                'getRecentTweetList'
+                'getHotTweetList'
             ]),
-            recentTweet(page) {
+            hotTweet(page) {
                 Indicator.open('加载中...');
-                this.getRecentTweetList(page)
+                this.getHotTweetList(page)
             },
             loadTop(evt) {
-                this.recentTweet(1)
+                this.hotTweet(1)
             },
             loadBottom(evt) {
-                this.recentTweet(this.option.page)
+                this.hotTweet(this.option.page)
             },
             handleTopChange(status) {
                 this.topStatus = status

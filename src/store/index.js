@@ -7,7 +7,9 @@ import multiple_softupdatenews from './modules/multiple_softupdatenews'//软件�
 import news_detail from './modules/news_detail'
 import comment_list from './modules/comment_list'
 import recent_tweet from './modules/tweet/recent_tweet'
+import hot_tweet from './modules/tweet/hot_tweet'
 import multiple from './modules/multiple'
+import mine from './modules/mine/mine'
 import * as getters from './getters'
 
 Vue.use(Vuex)
@@ -22,6 +24,8 @@ export default new Vuex.Store({
         news_detail,
         comment_list,
         recent_tweet,
-        multiple
+        hot_tweet,
+        multiple,
+        mine
     }
 })

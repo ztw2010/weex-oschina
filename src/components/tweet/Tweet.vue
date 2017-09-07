@@ -27,16 +27,30 @@
         watch: {
             '$route' (to, from) {
                 if(to.name === 'tweet'){
-                    this.showRecentTweet();
+                    this.switchTab(this.tabPage.tweet);
                 }
             }
         },
+        computed: {
+            ...mapGetters({
+                tabPage: 'tab_page'
+            })
+        },
         created() {
-            this.showRecentTweet()
+            this.switchTab('recent_tweet')
         },
         methods: {
+            ...mapActions([
+                'updateTabPage'
+            ]),
             showRecentTweet(){
                 this.$router.push({ name: 'recentweet' })
+            },
+            showHotTweet(){
+                this.$router.push({ name: 'hottweet' })
+            },
+            showMineTweet(){
+                this.$router.push({ name: 'minetweet' })
             },
             switchTab(tabName){
                 this.currentPage = tabName
@@ -46,12 +60,15 @@
                         this.showRecentTweet();
                         break;
                     case 'hot_tweet':
+                        this.showHotTweet();
                         break;
                     case 'mine_tweet':
+                        this.showMineTweet();
                         break;
                     default:
                         break;
                 }
+                this.updateTabPage({'moduleName' : 'tweet', 'tabName' : tabName})
             }
         }
     }

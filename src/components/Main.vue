@@ -1,9 +1,9 @@
 <template lang="html">
     <div class="main">
-        <mt-header fixed :title="title" style="background-color: #24cf5f">
+        <mt-header v-show="isShowTop" fixed :title="title" style="background-color: #24cf5f">
             <img class="top_image" slot="right" src="../assets/actionbar_search_icon.png">
         </mt-header>
-        <div class="main_content">
+        <div class="main_content" :style="{'margin-top': marginTop + 'px'}">
             <transition name="fade">
                 <keep-alive>
                     <router-view></router-view>
@@ -28,6 +28,9 @@
                     <img class="nav_image" src="../assets/ic_nav_tweet_normal.png">
                 </template>
                 <span :class="currentPage == 'tweet'?'nav_text_actived':'nav_text_normal'">动弹</span>
+            </div>
+            <div class="bottom_nav">
+                <img class="pub_tweet_img_class" src="../assets/pub_tweet.png">
             </div>
             <div class="bottom_nav" v-on:click="switchTab('discovery')">
                 <template v-if="currentPage=='discovery'">
@@ -56,7 +59,9 @@
         data() {
             return {
                 title: "",
-                currentPage: 'multiple'
+                currentPage: 'multiple',
+                isShowTop: true,
+                marginTop: 70
             }
         },
         created() {
@@ -91,15 +96,23 @@
                 switch (page) {
                     case 'multiple':
                         vue.showMultiplePage()
+                        vue.isShowTop = true
+                        vue.marginTop = 70
                         break;
                     case 'tweet':
                         vue.showTweetPage()
+                        vue.isShowTop = true
+                        vue.marginTop = 70
                         break;
                     case 'discovery':
                         vue.showDiscoveryPage()
+                        vue.isShowTop = true
+                        vue.marginTop = 70
                         break;
                     case 'mine':
                         vue.showMinePage()
+                        vue.isShowTop = false
+                        vue.marginTop = 0
                         break;
                     default:
                         vue.showMultiplePage()
@@ -187,5 +200,10 @@
     .fade-enter,
     .fade-leave-active {
         opacity: 0
+    }
+
+    .pub_tweet_img_class{
+        width: 50px;
+        height: 50px;
     }
 </style>

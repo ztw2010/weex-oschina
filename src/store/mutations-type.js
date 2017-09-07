@@ -26,3 +26,9 @@ export const UPDATE_TAB_PAGE = 'update_tab_page'
 
 //最新动弹
 export const RECENT_TWEET = 'recent_tweet'
+
+//热门动弹
+export const HOT_TWEET = 'hot_tweet'
+
+//个人信息页
+export const MINE = 'mine'
