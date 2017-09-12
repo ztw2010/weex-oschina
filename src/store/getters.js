@@ -35,9 +35,19 @@ export const recent_tweet_option = state => state.recent_tweet.option
 export const hot_tweet_list = state => state.hot_tweet.statuses
 export const hot_tweet_option = state => state.hot_tweet.option
 
+//我的动弹
+export const mine_tweet_list = state => state.mine_tweet.statuses
+export const mine_tweet_page = state => state.mine_tweet.page
+
 //个人信息
 export const mine_info = state => state.mine.mineInfo
 
 //收藏列表
 export const favorite_list = state => state.favorite.statuses
 export const favorite_list_page = state => state.favorite.page
+
+//关注列表
+export const follow_list = state => state.follow.statuses
+export const follow_page = state => state.follow.page
+// 1:关注 0:粉丝
+export const follow_type = state => state.follow.type

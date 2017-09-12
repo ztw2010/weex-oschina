@@ -19,7 +19,7 @@
                     <span class="mine_user_info_span_class">{{mineInfo.name}}</span>
                     <span class="mine_integral_span_class">积分 0</span>
                 </div>
-                <div class="mine_user_bottom_div_class">
+                <div class="mine_user_bottom_div_class" v-on:click="goToMineTweetList()">
                     <div class="mine_item_div_class">
                         <span class="count_span_class">1</span>
                         <span class="count_dis_span_class">动弹</span>
@@ -28,11 +28,11 @@
                         <span class="count_span_class">{{mineInfo.favoriteCount}}</span>
                         <span class="count_dis_span_class">收藏</span>
                     </div>
-                    <div class="mine_item_div_class">
+                    <div class="mine_item_div_class" v-on:click="goToFollowList()">
                         <span class="count_span_class">{{mineInfo.followersCount}}</span>
                         <span class="count_dis_span_class">关注</span>
                     </div>
-                    <div class="mine_item_div_class">
+                    <div class="mine_item_div_class" v-on:click="goToFansList()">
                         <span class="count_span_class">{{mineInfo.fansCount}}</span>
                         <span class="count_dis_span_class">粉丝</span>
                     </div>
@@ -106,6 +106,13 @@
         created() {
             this.getInfo()
         },
+        watch:{
+            '$route': function (to, from) {
+                if(to.name === 'mine'){
+                    this.getInfo()
+                }
+            }
+        },
         computed: {
             ...mapGetters({
                 mineInfo: 'mine_info'
@@ -113,13 +120,24 @@
         },
         methods:{
             ...mapActions([
-                'getMineInfo'
+                'getMineInfo',
+                'updateType'
             ]),
             getInfo(){
                 this.getMineInfo()
             },
             goToFavoriteList(){
                 this.$router.push({ name: 'favorite' })
+            },
+            goToFollowList(){
+                this.updateType(1)
+                this.$router.push({ name: 'follow'})
+            },
+            goToFansList(){
+                this.updateType(0)
+                this.$router.push({name : 'follow'})
+            },
+            goToMineTweetList(){
             }
         }
     }

@@ -55,3 +55,33 @@ export const getHotTweetList = (page, okCallback, errorCallback) => {
     }
     goAxios(config, okCallback, errorCallback);
 }
+
+export const getMineTweetList = (page, okCallback, errorCallback) => {
+
+    const accesstoken = store.getters.token.access_token
+
+    let userId = store.getters.mine_info.uid
+
+    var request_data = {
+        paramsObj: {
+            access_token: accesstoken,
+            catalog: 4,
+            user: 616564,
+            pageSize: 20,
+            page: page,
+            dataType: 'json'
+        },
+        methodName: 'getMineTweetList'
+    }
+
+    var config = {
+        method: 'post',
+        url: API_ROUTER_CONFIG.oauth_post,
+        baseURL: HOST_CONCIG.host,
+        data: request_data,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    goAxios(config, okCallback, errorCallback);
+}

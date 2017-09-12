@@ -15,6 +15,7 @@ import RecentTweet from '../components/tweet/RecentTweet'
 import HotTweet from '../components/tweet/HotTweet'
 import MineTweet from '../components/tweet/MineTweet'
 import Favorite from '../components/favorite/Favorite'
+import Follow from '../components/follow/Follow'
 import store from '../store/'
 import * as scrollUtils from '../utils/scroll-position'
 import {DEBUG} from '../api/config/api-config'
@@ -142,6 +143,14 @@ const router = new Router({
             path: '/favorite',
             name: 'favorite',
             component: Favorite,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/follow',
+            name: 'follow',
+            component: Follow,
             meta: {
                 requiresAuth: true
             }

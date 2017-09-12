@@ -1,12 +1,12 @@
 <template lang="html">
     <div style="background-color: white">
         <mt-header fixed style="background-color: #24cf5f">
-           <mt-button v-on:click="goBack()" icon="back" slot="left">收藏</mt-button>
+           <mt-button v-on:click="goBack()" icon="back" slot="left">{{title}}</mt-button>
         </mt-header>
         <mt-loadmore ref="loadmore" style="height: 100%;margin-top: 50px" :top-method="loadTop" @top-status-change="handleTopChange"
             :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" :autoFill="autoFill">
-            <item_favorite_list v-for="(item, index) in list" :key="item.objid" :item="item" :isLast="index === list.length - 1" v-on:itemClick="gotoDetail">
-            </item_favorite_list>
+            <item_follow_list v-for="(item, index) in list" :key="item.userid" :item="item" :isLast="index === list.length - 1" v-on:itemClick="gotoDetail">
+            </item_follow_list>
             <div slot="top" class="mint-loadmore-top">
                 <span v-show="topStatus !== 'loading'" :class="{ 'is-rotate': topStatus === 'drop' }">↓</span>
                 <span v-show="topStatus === 'loading'">
@@ -22,28 +22,38 @@
         </mt-loadmore>
     </div>
 </template>
+
 <script>
     import { mapActions, mapGetters } from 'vuex'
     import { Header, Loadmore } from 'mint-ui'
-    import item_favorite_list from './item_favorite_list'
+    import item_follow_list from './item_follow_list'
     export default {
-        name: "favorite_list",
-        components: { item_favorite_list },
+        name: "follow",
+        components: { item_follow_list },
         data() {
             return {
                 list: [],
                 topStatus: '',
                 bottomStatus: '',
                 allLoaded: false,
-                autoFill: false,
+                autoFill: false
             };
         },
         mounted() {
+
         },
         computed: {
+            title: function () {
+                if(this.type === 0){
+                    return '粉丝列表'
+                } else if(this.type === 1){
+                    return '关注列表'
+                }
+            },
             ...mapGetters({
-                statuses: 'favorite_list',
-                page: 'favorite_list_page'
+                statuses: 'follow_list',
+                page: 'follow_page',
+                type: 'follow_type'
             })
         },
         watch: {
@@ -67,20 +77,23 @@
                         this.list = [...this.list, ...val]
                     }
                 }
-            }
+            },
+            type: function (val, oldVal) {
+                this.getFollowsList(1)
+            },
         },
         created () {
-            this.getFavoritesList(1)
+            this.getFollowsList(1)
         },
         methods: {
             ...mapActions([
-                'getFavoriteList'
+                'getFollowList'
             ]),
             loadTop(evt) {
-                this.getFavoritesList(1)
+                this.getFollowsList(1)
             },
             loadBottom(evt) {
-                this.getFavoritesList(this.page)
+                this.getFollowsList(this.page)
             },
             handleTopChange(status) {
                 this.topStatus = status
@@ -88,8 +101,8 @@
             handleBottomChange(status) {
                 this.bottomStatus = status;
             },
-            getFavoritesList(page){
-                this.getFavoriteList(page)
+            getFollowsList(page){
+                this.getFollowList(page)
             },
             hideLoading(){
                 if(this.topStatus === 'loading'){
@@ -103,17 +116,11 @@
                 this.$router.go(-1)
             },
             gotoDetail(detailObj){
-                if(detailObj.newsType !== 4){
-                    this.$router.push({'name' : 'newsdetail', 'params': {'newsId': detailObj.newsId, 'newsType': detailObj.newsType, 'newsUrl': detailObj.newsUrl}})
-                } else {
-                    this.$router.push({'name' : 'newsdetail', 'params': {'newsId': detailObj.newsId, 'newsType': detailObj.newsType}})
-                }
+
             }
         }
     }
 </script>
 
 <style scoped>
-
-
 </style>

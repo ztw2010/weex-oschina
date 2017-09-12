@@ -30,8 +30,16 @@ export const RECENT_TWEET = 'recent_tweet'
 //热门动弹
 export const HOT_TWEET = 'hot_tweet'
 
+//我的动弹
+export const MINE_TWEET = 'mine_tweet'
+
 //个人信息页
 export const MINE = 'mine'
 
 //个人收藏
 export const FAVORITE = 'favorite'
+
+//关注列表
+export const FOLLOW = 'follow'
+//更新类型
+export const UPDATE_FOLLOW_TYPE = 'update_follow_type'
