@@ -14,6 +14,7 @@ import CommentList from '../components/CommentList'
 import RecentTweet from '../components/tweet/RecentTweet'
 import HotTweet from '../components/tweet/HotTweet'
 import MineTweet from '../components/tweet/MineTweet'
+import Favorite from '../components/favorite/Favorite'
 import store from '../store/'
 import * as scrollUtils from '../utils/scroll-position'
 import {DEBUG} from '../api/config/api-config'
@@ -122,7 +123,7 @@ const router = new Router({
             ]
         },
         {
-            path: '/newsdetail/:newsId/:newsType',
+            path: '/newsdetail/:newsId/:newsType/:newsUrl?',
             name: 'newsdetail',
             component: NewsDetail,
             meta: {
@@ -133,6 +134,14 @@ const router = new Router({
             path: '/newscommentlist/:newsId',
             name: 'commentlist',
             component: CommentList,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/favorite',
+            name: 'favorite',
+            component: Favorite,
             meta: {
                 requiresAuth: true
             }

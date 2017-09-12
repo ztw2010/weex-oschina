@@ -1,15 +1,13 @@
 import {
     FAVORITE
-} from '../mutations-type'
+} from '../../mutations-type'
 
-import * as api from '../../api/impl/favorite/favorite-impl'
-import {logger} from '../../utils/logger'
+import * as api from '../../../api/impl/favorite/favorite-impl'
+import {logger} from '../../../utils/logger'
 
 const state = {
     statuses: [],
-    option: {
-        page: 1
-    }
+    page: 1
 }
 
 const mutations = {
@@ -17,23 +15,21 @@ const mutations = {
     [FAVORITE](state, obj) {
         if(obj.page === 1){
             state.statuses = []
-            state.option.page = 2
+            state.page = 2
         } else {
-            state.option.page ++
+            state.page ++
         }
-        state.statuses = obj.newslist
-        logger('multiple_timeline', 'save store succeed !')
+        state.statuses = obj.favoriteList
     }
 }
 
 const actions = {
-
-    getMultipleMultipleNews: ({commit}, page) => {
-        console.log('getMultipleMultipleNews')
-        api.getMultipleMultipleNews(
+    getFavoriteList: ({commit}, page) => {
+        console.log('getFavoriteList')
+        api.getFavoriteList(
             page,
             response => {
-                commit(FAVORITE, {'newslist' : response.newslist, 'page' : page})
+                commit(FAVORITE, {'favoriteList' : response.favoriteList, 'page' : page})
             },
             err => {
                 console.log(err);

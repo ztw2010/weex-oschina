@@ -64,18 +64,39 @@ export const filterName = (str) => {
 }
 
 export const transformTitleByType = (type) => {
-    if(typeof(type) !== 'undefined'){
-        if(type === 1){
+    if (typeof(type) !== 'undefined') {
+        if (type === 1) {
             return "软件详情"
-        } else if(type === 4 || type === 7){
+        } else if (type === 4 || type === 7) {
             return "咨询详情"
-        } else if(type === 0){
+        } else if (type === 0) {
             return "开源中国"
-        } else if(type === 2){
+        } else if (type === 2) {
             return "问答详情"
-        } else if(type === 3){
+        } else if (type === 3) {
             return "博客详情"
         }
     }
     return "咨询详情"
+}
+
+export const getTypeNameByTypeId = (typeId) => {
+    if (typeof(typeId) !== 'undefined') {
+        if (typeId === 1) {
+            return "软件"
+        } else if (typeId === 4) {
+            return "新闻"
+        } else if (typeId === 0) {
+            return "全部"
+        } else if (typeId === 2) {
+            return "话题"
+        } else if (typeId === 3) {
+            return "博客"
+        } else if (typeId === 7) {
+            return "翻译"
+        } else if (typeId === 5) {
+            return "代码"
+        }
+    }
+    return ""
 }

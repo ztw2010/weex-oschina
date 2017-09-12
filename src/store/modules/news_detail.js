@@ -32,6 +32,7 @@ const actions = {
         api.getNewsDetailContents(
             newsObj.newsId,
             newsObj.newsType,
+            newsObj.newsUrl,
             response => {
                 commit(NEWS_DETAILED, response)
             },

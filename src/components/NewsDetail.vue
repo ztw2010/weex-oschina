@@ -145,7 +145,7 @@ export default {
             if(val){
                 if(typeof(val.newsId) !== "undefined" && typeof(val.newsType) !== "undefined" && typeof(oldVal.newsId) === "undefined"){//typeof(oldVal.newsId) === "undefined"从评论列表返回到详情页时不需要重新加载数据
                     this.newsType = val.newsType
-                    this.getNewsDetail(val.newsId, val.newsType)
+                    this.getNewsDetail(val.newsId, val.newsType, val.newsUrl)
                 }
             }
         },
@@ -175,16 +175,17 @@ export default {
         let vue = this
         let newsId = vue.$route.params.newsId
         let newsType = vue.$route.params.newsType
+        let newsUrl = vue.$route.params.newsUrl
         this.newsType = newsType
-        this.getNewsDetail(newsId, newsType)
+        this.getNewsDetail(newsId, newsType, newsUrl)
     },
     methods: {
         ...mapActions([
             'getNewsDetailContent',
             'pubCommnet'
         ]),
-        getNewsDetail(newsId, newsType){
-            this.getNewsDetailContent({newsId, newsType});
+        getNewsDetail(newsId, newsType, newsUrl){
+            this.getNewsDetailContent({newsId, newsType, newsUrl});
         },
         goBack(){
             this.$router.go(-1)

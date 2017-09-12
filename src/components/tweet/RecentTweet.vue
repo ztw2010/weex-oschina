@@ -1,5 +1,5 @@
 <template lang="html">
-    <div>
+    <div style="background-color: white">
         <mt-loadmore ref="loadmore" style="height: 100%" :top-method="loadTop" @top-status-change="handleTopChange"
             :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" :autoFill="autoFill">
             <item_recent_tweet v-for="(item, index) in list" :key="item.id" :item="item" :isLast="index === list.length - 1"></item_recent_tweet>
@@ -51,7 +51,6 @@
                 deep: true
             },
             statuses: function (val, oldVal) {
-                Indicator.close()
                 if(this.topStatus === 'loading'){
                     this.$refs.loadmore.onTopLoaded()
                 }
@@ -78,7 +77,6 @@
                 'getRecentTweetList'
             ]),
             recentTweet(page) {
-                Indicator.open('加载中...');
                 this.getRecentTweetList(page)
             },
             loadTop(evt) {

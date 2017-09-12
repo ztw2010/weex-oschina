@@ -10,6 +10,7 @@ import recent_tweet from './modules/tweet/recent_tweet'
 import hot_tweet from './modules/tweet/hot_tweet'
 import multiple from './modules/multiple'
 import mine from './modules/mine/mine'
+import favorite from './modules/favorite/favorite_module'
 import * as getters from './getters'
 
 Vue.use(Vuex)
@@ -26,6 +27,7 @@ export default new Vuex.Store({
         recent_tweet,
         hot_tweet,
         multiple,
+        favorite,
         mine
     }
 })

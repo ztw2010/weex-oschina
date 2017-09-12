@@ -100,7 +100,6 @@
                 deep: true
             },
             commentList: function (val, oldVal) {
-                Indicator.close()
                 if(this.topStatus === 'loading'){
                     this.$refs.loadmore.onTopLoaded()
                 }
@@ -151,7 +150,6 @@
                 this.$router.go(-1)
             },
             getCommentLists(newsId, page, isRefresh){
-                Indicator.open('加载中...');
                 this.getCommentList({newsId: newsId, page: page, isRefresh: isRefresh});
             },
             handleBottomChange(status) {

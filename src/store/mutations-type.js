@@ -32,3 +32,6 @@ export const HOT_TWEET = 'hot_tweet'
 
 //个人信息页
 export const MINE = 'mine'
+
+//个人收藏
+export const FAVORITE = 'favorite'

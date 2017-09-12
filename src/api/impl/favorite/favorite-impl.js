@@ -1,49 +1,29 @@
-import {
-    FAVORITE
-} from '../mutations-type'
+import {goAxios} from '../baseAxios';
+import { HOST_CONCIG, KEY_CONFIG, API_ROUTER_CONFIG } from '../../config/api-config'
+import { logger } from '../../../utils/logger'
+import store from '../../../store/'
 
-import * as api from '../../api/impl/multiple-multiplenews'
-import {logger} from '../../utils/logger'
-
-const state = {
-    statuses: [],
-    option: {
-        page: 1
+export const getFavoriteList = (page, okCallback, errorCallback) => {
+    const accesstoken = store.getters.token.access_token
+    var oauthData = {
+        paramsObj: {
+            access_token: accesstoken,
+            type: 0,
+            page: page,
+            pageSize: 20,
+            dataType: 'json'
+        },
+        methodName: 'getFavoriteList'
     }
-}
 
-const mutations = {
-
-    [FAVORITE](state, obj) {
-        if(obj.page === 1){
-            state.statuses = []
-            state.option.page = 2
-        } else {
-            state.option.page ++
+    var config = {
+        method: 'post',
+        url: API_ROUTER_CONFIG.oauth_post,
+        baseURL: HOST_CONCIG.host,
+        data: oauthData,
+        headers: {
+            'Content-Type': 'application/json'
         }
-        state.statuses = obj.newslist
-        logger('multiple_timeline', 'save store succeed !')
     }
-}
-
-const actions = {
-
-    getMultipleMultipleNews: ({commit}, page) => {
-        console.log('getMultipleMultipleNews')
-        api.getMultipleMultipleNews(
-            page,
-            response => {
-                commit(FAVORITE, {'newslist' : response.newslist, 'page' : page})
-            },
-            err => {
-                console.log(err);
-            }
-        )
-    }
-}
-
-export default {
-    state,
-    actions,
-    mutations
+    goAxios(config, okCallback, errorCallback);
 }

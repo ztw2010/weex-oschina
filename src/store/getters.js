@@ -37,3 +37,7 @@ export const hot_tweet_option = state => state.hot_tweet.option
 
 //个人信息
 export const mine_info = state => state.mine.mineInfo
+
+//收藏列表
+export const favorite_list = state => state.favorite.statuses
+export const favorite_list_page = state => state.favorite.page
