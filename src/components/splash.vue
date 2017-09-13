@@ -3,7 +3,7 @@
         <div class="info-content">
             <h3 class="project-name" >OSChina-Web</h3>
             <div class="project-desc">
-                <p>基于oauth、vue、weex、的三端一致APP</p>
+                <p>基于oauth、vue的OSChina APP</p>
             </div>
             <div class="logining " :class="loginState?'show': ''">
                 <pixel-spinner :size="'45px'" :color="'#007AFF'"></pixel-spinner>

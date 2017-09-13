@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mt-loadmore ref="loadmore" style="height: 100%;margin-top: 50px" :top-method="loadTop" @top-status-change="handleTopChange"
+    <mt-loadmore ref="loadmore" style="height: 100%;" :top-method="loadTop" @top-status-change="handleTopChange"
                  :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" :autoFill="autoFill">
       <item_tweet_mine_list v-for="(item, index) in list" :key="item.objectId" :item="item" :isLast="index === list.length - 1" v-on:itemClick="gotoDetail">
       </item_tweet_mine_list>
@@ -48,10 +48,24 @@
                 required: true
             }
         },
+        watch: {
+            isComplete: function (val, oldVal){
+                if(val){
+                    if(this.topStatus === 'loading'){
+                        this.$refs.loadmore.onTopLoaded()
+                    }
+                    if(this.bottomStatus === 'loading'){
+                        this.$refs.loadmore.onBottomLoaded()
+                    }
+                }
+            }
+        },
         methods: {
             loadTop(evt) {
+                this.$emit('loadTop', evt);
             },
             loadBottom(evt) {
+                this.$emit('loadBottom', evt);
             },
             handleTopChange(status) {
                 this.topStatus = status

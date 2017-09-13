@@ -2,7 +2,7 @@
     <div class="mine">
         <div class="mine_top_div_class">
             <div class="top_top_div_class">
-                <div class="top_top_img_div_class">
+                <div class="top_top_img_div_class" @click="toggleLeftSidenav">
                     <img class="top_top_img_class" src="../../assets/btn_my_setting.png">
                 </div>
                 <div class="top_top_img_div_class right">
@@ -19,9 +19,9 @@
                     <span class="mine_user_info_span_class">{{mineInfo.name}}</span>
                     <span class="mine_integral_span_class">积分 0</span>
                 </div>
-                <div class="mine_user_bottom_div_class" v-on:click="goToMineTweetList()">
-                    <div class="mine_item_div_class">
-                        <span class="count_span_class">1</span>
+                <div class="mine_user_bottom_div_class">
+                    <div class="mine_item_div_class" v-on:click="goToMineTweetList()">
+                        <span class="count_span_class">{{mineInfo.tweetCount}}</span>
                         <span class="count_dis_span_class">动弹</span>
                     </div>
                     <div class="mine_item_div_class" v-on:click="goToFavoriteList()">
@@ -43,7 +43,7 @@
             <div class="bottom_item_div_class">
                 <div class="item_top_div_class">
                     <img style="width: 30px;height: 30px" src="../../assets/ic_my_message.png">
-                    <div class="mine_badge_div_class">
+                    <div class="mine_badge_div_class" v-on:click="goToMsgCenter">
                         <span class="bottom_item_span_class_mine">我的消息</span>
                         <mt-badge size="small" color="#E35B5A" style="margin-left: 5px;text-align: center;line-height: 20px">2</mt-badge>
                     </div>
@@ -91,6 +91,16 @@
                 </div>
             </div>
         </div>
+        <md-sidenav class="md-left" ref="leftSidenav" style="background-color: #f6f6f6">
+            <md-toolbar class="md-large" style="background-color: #24cf5f">
+                <div class="md-toolbar-container" >
+                  <h3 class="md-title">设置</h3>
+                </div>
+            </md-toolbar>
+            <div class="mine_logout_div_class">
+                <span class="logout_span_class">注销</span>
+            </div>
+        </md-sidenav>
     </div>
 </template>
 
@@ -123,6 +133,9 @@
                 'getMineInfo',
                 'updateType'
             ]),
+            toggleLeftSidenav() {
+                this.$refs.leftSidenav.toggle();
+            },
             getInfo(){
                 this.getMineInfo()
             },
@@ -138,12 +151,16 @@
                 this.$router.push({name : 'follow'})
             },
             goToMineTweetList(){
+                this.$router.push({name : 'mineInfoTweet'})
+            },
+            goToMsgCenter(){
+                this.$router.push({name : 'msgcenter'})
             }
         }
     }
 </script>
 
-<style lang="css">
+<style scoped>
     .mine{
         display: flex;
         flex-direction: column;
@@ -319,5 +336,30 @@
         margin-left: 10px;
     }
 
+    .mine_logout_div_class{
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border-top-style: solid;
+        border-top-color: #d4d4d4;
+        border-top-width: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: #d4d4d4;
+        border-bottom-width: 1px;
+        margin-top: 10px;
+    }
+
+    .mine_logout_div_class:active{
+        background-color: #ebebeb;
+    }
+
+    .logout_span_class{
+        line-height: 50px;
+        text-align: center;
+        padding-left: 10px;
+        font-size: 15px;
+        color: #111111;
+    }
 
 </style>

@@ -16,6 +16,8 @@ import HotTweet from '../components/tweet/HotTweet'
 import MineTweet from '../components/tweet/MineTweet'
 import Favorite from '../components/favorite/Favorite'
 import Follow from '../components/follow/Follow'
+import MineInfoTweet from '../components/mine/MineInfoTweet'
+import MsgCenter from '../components/msgcenter/MsgCenter'
 import store from '../store/'
 import * as scrollUtils from '../utils/scroll-position'
 import {DEBUG} from '../api/config/api-config'
@@ -151,6 +153,22 @@ const router = new Router({
             path: '/follow',
             name: 'follow',
             component: Follow,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/mineInfoTweet',
+            name: 'mineInfoTweet',
+            component: MineInfoTweet,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/msgcenter',
+            name: 'msgcenter',
+            component: MsgCenter,
             meta: {
                 requiresAuth: true
             }

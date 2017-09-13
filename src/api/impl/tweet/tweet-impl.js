@@ -58,15 +58,15 @@ export const getHotTweetList = (page, okCallback, errorCallback) => {
 
 export const getMineTweetList = (page, okCallback, errorCallback) => {
 
-    const accesstoken = store.getters.token.access_token
+    let accesstoken = store.getters.token.access_token
 
-    let userId = store.getters.mine_info.uid
+    let userId = store.getters.token.uid
 
     var request_data = {
         paramsObj: {
             access_token: accesstoken,
             catalog: 4,
-            user: 616564,
+            user: userId,
             pageSize: 20,
             page: page,
             dataType: 'json'

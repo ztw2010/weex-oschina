@@ -100,3 +100,20 @@ export const getTypeNameByTypeId = (typeId) => {
     }
     return ""
 }
+
+export const getDeviceNameByType = (type) => {
+    if (typeof(type) !== 'undefined') {
+        if (type === 1) {
+            return "WEB"
+        } else if (type === 2) {
+            return "WAP"
+        } else if (type === 3) {
+            return "Android"
+        } else if (type === 4) {
+            return "IOS"
+        } else if (type === 5) {
+            return "WP"
+        }
+    }
+    return ""
+}
