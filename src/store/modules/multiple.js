@@ -23,6 +23,9 @@ const mutations = {
             case 'tweet':
                 state.tabPage.tweet = obj.tabName
                 break;
+            case 'msgcenter':
+                state.tabPage.msgcenter = obj.tabName
+                break;
         }
     }
 }

@@ -1,20 +1,23 @@
 <template>
-  <div style="background-color: white">
-    <mt-header fixed style="background-color: #24cf5f">
-      <mt-button v-on:click="goBack()" icon="back" slot="left">动弹列表</mt-button>
-    </mt-header>
-    <tweet_mine_list style="margin-top: 40px" v-bind:list="list" v-bind:isComplete="isComplete" v-on:loadTop="loadTop" v-on:loadBottom="loadBottom"></tweet_mine_list>
-  </div>
+    <div style="background-color: white">
+        <mt-header fixed style="background-color: #24cf5f">
+            <mt-button v-on:click="goBack()" icon="back" slot="left">动弹列表</mt-button>
+        </mt-header>
+        <common_list style="margin-top: 40px" v-bind:list="list" v-bind:isComplete="isComplete" v-on:loadTop="loadTop"
+                     v-on:loadBottom="loadBottom" :item-component="$options.components.item_mine_info_mine_tweet">
+        </common_list>
+    </div>
 </template>
 
 <style scoped>
-  
+
 </style>
 
 <script type="text/ecmascript-6">
-    import { Header } from 'mint-ui'
-    import { mapActions, mapGetters } from 'vuex'
-    import tweet_mine_list from '../comment/tweet_mine_list'
+    import {Header} from 'mint-ui'
+    import {mapActions, mapGetters} from 'vuex'
+    import common_list from '../comment/common_list'
+    import item_mine_info_mine_tweet from '../comment/item_mine_info_mine_tweet'
     export default {
         data() {
             return {
@@ -22,15 +25,15 @@
                 isComplete: true
             }
         },
-        components: { tweet_mine_list },
+        components: {common_list, item_mine_info_mine_tweet},
         computed: {
             ...mapGetters({
-                statuses: 'mine_tweet_list',
-                page: 'mine_tweet_page'
+                statuses: 'mine_info_mine_tweet_list',
+                page: 'mine_info_mine_tweet_page'
             })
         },
         created () {
-            this.getMineTweetList(1)
+            this.getMineInfoMineTweetList(1)
         },
         watch: {
             page: {
@@ -54,15 +57,15 @@
         },
         methods: {
             ...mapActions([
-                'getMineTweetList'
+                'getMineInfoMineTweetList'
             ]),
             loadTop() {
                 this.isComplete = false
-                this.getMineTweetList(1)
+                this.getMineInfoMineTweetList(1)
             },
             loadBottom() {
                 this.isComplete = false
-                this.getMineTweetList(this.page)
+                this.getMineInfoMineTweetList(this.page)
             },
             goBack(){
                 this.$router.go(-1)

@@ -33,8 +33,8 @@
             })
         },
         watch: {
-            '$route': function (val, oldVal) { //恢复显示之前的tab页
-                if(val && val.name === 'multiple'){
+            '$route': function (to, from) { //恢复显示之前的tab页
+                if(to && to.name === 'multiple'){
                     this.switchTab(this.tabPage.multiple)
                 }
             }

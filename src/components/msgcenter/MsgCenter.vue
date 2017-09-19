@@ -23,35 +23,52 @@
 </style>
 
 <script type="text/ecmascript-6">
+  import { mapActions, mapGetters } from 'vuex'
   export default {
       data() {
           return {
               currentPage: 'atme'
           }
       },
+      created() {
+          this.switchTab('atme')
+      },
+      watch: {
+          '$route': function (to, from) {
+              if(to.name === 'msgcenter'){
+                  this.switchTab(this.tabPage.msgcenter)
+              }
+          },
+      },
+      computed: {
+          ...mapGetters({
+              tabPage: 'tab_page'
+          })
+      },
       methods: {
           goBack(){
-              this.$router.go(-1)
+              this.$router.push({ name: 'mine' })
           },
-          showRecentTweet(){
-          },
-          showHotTweet(){
-          },
-          showMineTweet(){
-          },
+          ...mapActions([
+              'updateTabPage'
+          ]),
           switchTab(tabName){
               this.currentPage = tabName
               var vue = this
               switch (tabName) {
                   case 'atme':
+                      this.$router.push({ name: 'atme' })
                       break;
                   case 'comment':
+                      this.$router.push({ name: 'minecomment' })
                       break;
                   case 'private_letter':
+                      this.$router.push({ name: 'privateletter' })
                       break;
                   default:
                       break;
               }
+              this.updateTabPage({'moduleName' : 'msgcenter', 'tabName' : tabName})
           }
       },
   }

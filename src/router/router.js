@@ -18,6 +18,9 @@ import Favorite from '../components/favorite/Favorite'
 import Follow from '../components/follow/Follow'
 import MineInfoTweet from '../components/mine/MineInfoTweet'
 import MsgCenter from '../components/msgcenter/MsgCenter'
+import AtMe from '../components/msgcenter/AtMe'
+import MineComment from '../components/msgcenter/MineComment'
+import PrivateLetter from '../components/msgcenter/PrivateLetter'
 import store from '../store/'
 import * as scrollUtils from '../utils/scroll-position'
 import {DEBUG} from '../api/config/api-config'
@@ -171,7 +174,33 @@ const router = new Router({
             component: MsgCenter,
             meta: {
                 requiresAuth: true
-            }
+            },
+            children: [
+                {
+                    path: 'atme',
+                    name: 'atme',
+                    component: AtMe,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: 'minecomment',
+                    name: 'minecomment',
+                    component: MineComment,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: 'privateletter',
+                    name: 'privateletter',
+                    component: PrivateLetter,
+                    meta: {
+                        requiresAuth: true
+                    }
+                },
+            ]
         },
         {
             path: '*',

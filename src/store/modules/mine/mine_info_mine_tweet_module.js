@@ -1,8 +1,8 @@
 import {
-    MINE_TWEET
+    MINE_INFO_MINE_TWEET
 } from '../../mutations-type'
 
-import * as api from '../../../api/impl/tweet/tweet-impl'
+import * as api from '../../../api/impl/mine/mine-info-mine-tweet-impl'
 
 const state = {
     statuses: [],
@@ -11,19 +11,19 @@ const state = {
 
 const mutations = {
 
-    [MINE_TWEET](state, obj) {
+    [MINE_INFO_MINE_TWEET](state, obj) {
         if (obj.page === 1) {
             state.statuses = []
             state.page = 2
         } else {
             state.page++
         }
-        state.statuses = obj.tweetlist
+        state.statuses = obj.activelist
         for (var key in state.statuses) {
             let value = state.statuses[key]
-            if (value.imgSmall && value.imgSmall.length > 0 && value.imgSmall.indexOf(",") > 0) {
+            if (value.tweetImage && value.tweetImage.length > 0 && value.tweetImage.indexOf(",") > 0) {
                 var imgSmallArray = new Array();
-                let imageArray = value.imgSmall.split(",");
+                let imageArray = value.tweetImage.split(",");
                 let firstImgUrl = imageArray[0]
                 imgSmallArray.push(firstImgUrl)
                 let lastIndex = firstImgUrl.indexOf("space") + "space/".length
@@ -31,7 +31,7 @@ const mutations = {
                 for (let i = 1; i < imageArray.length; i++) {
                     imgSmallArray.push(preUrl + imageArray[i])
                 }
-                value.imgSmallList = imgSmallArray
+                value.tweetImageList = imgSmallArray
             }
         }
     }
@@ -39,12 +39,12 @@ const mutations = {
 
 const actions = {
 
-    getTweetMineTweetList: ({commit}, page) => {
-        console.log('getTweetMineTweetList')
-        api.getTweetMineTweetList(
+    getMineInfoMineTweetList: ({commit}, page) => {
+        console.log('getMineInfoMineTweetList')
+        api.getMineInfoMineTweetList(
             page,
             response => {
-                commit(MINE_TWEET, {'tweetlist': response.tweetlist, 'page': page})
+                commit(MINE_INFO_MINE_TWEET, {'activelist': response.activelist, 'page': page})
             },
             err => {
                 console.log(err);

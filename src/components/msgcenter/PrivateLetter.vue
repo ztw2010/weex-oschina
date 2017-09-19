@@ -1,35 +1,38 @@
 <template>
-  <div style="background-color: white">
-    <common_list style="margin-top: 0px" v-bind:list="list" v-bind:isComplete="isComplete" v-on:loadTop="loadTop"
-                 v-on:loadBottom="loadBottom" :item-component="$options.components.item_mine_tweet">
-    </common_list>
-  </div>
+    <div>
+        <common_list class="common_list_class" v-bind:list="list" v-bind:isComplete="isComplete" v-on:loadTop="loadTop"
+                     v-on:loadBottom="loadBottom" :item-component="$options.components.item_private_letter">
+        </common_list>
+    </div>
 </template>
 
 <style scoped>
-  
+    .common_list_class {
+        margin-top: 70px;
+    }
 </style>
 
 <script type="text/ecmascript-6">
-    import { mapActions, mapGetters } from 'vuex'
     import common_list from '../comment/common_list'
-    import item_mine_tweet from '../comment/item_mine_tweet'
+    import item_private_letter from '../comment/item_private_letter'
+    import {mapActions, mapGetters} from 'vuex'
     export default {
+        name: "privateletter",
+        components: {common_list, item_private_letter},
         data() {
             return {
                 list: [],
                 isComplete: true
-            }
+            };
         },
-        components: { common_list, item_mine_tweet },
         computed: {
             ...mapGetters({
-                statuses: 'mine_tweet_list',
-                page: 'mine_tweet_page'
+                statuses: 'private_letter_list',
+                page: 'private_letter_page'
             })
         },
         created () {
-            this.getTweetMineTweetList(1)
+            this.getPrivateLetterList(1)
         },
         watch: {
             page: {
@@ -53,16 +56,17 @@
         },
         methods: {
             ...mapActions([
-                'getTweetMineTweetList'
+                'getPrivateLetterList'
             ]),
             loadTop() {
-                this.isComplete = false
-                this.getTweetMineTweetList(1)
+                let vue = this
+                vue.isComplete = false
+                this.getPrivateLetterList(1)
             },
             loadBottom() {
                 this.isComplete = false
-                this.getTweetMineTweetList(this.page)
+                this.getPrivateLetterList(this.page)
             }
-        },
+        }
     }
 </script>

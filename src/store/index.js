@@ -13,6 +13,10 @@ import multiple from './modules/multiple'
 import mine from './modules/mine/mine'
 import favorite from './modules/favorite/favorite_module'
 import follow from './modules/follow/follow_module'
+import mine_info_mine_tweet_module from './modules/mine/mine_info_mine_tweet_module'
+import at_me_module from './modules/mine/at_me_module'
+import mine_comment_module from './modules/mine/mine_comment_module'
+import private_letter_module from './modules/mine/private_letter_module'
 import * as getters from './getters'
 
 Vue.use(Vuex)
@@ -32,6 +36,10 @@ export default new Vuex.Store({
         multiple,
         favorite,
         follow,
+        mine_info_mine_tweet_module,
+        at_me_module,
+        mine_comment_module,
+        private_letter_module,
         mine
     }
 })

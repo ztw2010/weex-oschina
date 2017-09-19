@@ -27,13 +27,13 @@ export const UPDATE_TAB_PAGE = 'update_tab_page'
 //最新动弹
 export const RECENT_TWEET = 'recent_tweet'
 
-//热门动弹
+//动弹-热门动弹
 export const HOT_TWEET = 'hot_tweet'
 
-//我的动弹
+//动弹-我的动弹
 export const MINE_TWEET = 'mine_tweet'
 
-//个人信息页
+//动弹-个人信息页
 export const MINE = 'mine'
 
 //个人收藏
@@ -43,3 +43,15 @@ export const FAVORITE = 'favorite'
 export const FOLLOW = 'follow'
 //更新类型
 export const UPDATE_FOLLOW_TYPE = 'update_follow_type'
+
+//个人中心-我的动弹
+export const MINE_INFO_MINE_TWEET = 'mine_info_mine_tweet'
+
+//消息中心-@我
+export const AT_ME = 'at_me'
+
+//消息中心-评论
+export const MINE_COMMENT = 'mine_comment'
+
+//消息中心-私信
+export const PRIVATE_LETTER = 'private_letter'

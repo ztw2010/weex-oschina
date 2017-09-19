@@ -6,7 +6,7 @@ const key_config = {
 
 const host_config = {
     local: 'http://192.168.2.199:8089/',
-    host: 'http://192.168.2.199:8083/OSChinaServer',
+    host: 'http://192.168.2.199:8083/vueoschina',
     oauth: 'https://www.oschina.net/action/oauth2/authorize',
 }
 

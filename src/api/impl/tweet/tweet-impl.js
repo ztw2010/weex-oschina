@@ -56,22 +56,21 @@ export const getHotTweetList = (page, okCallback, errorCallback) => {
     goAxios(config, okCallback, errorCallback);
 }
 
-export const getMineTweetList = (page, okCallback, errorCallback) => {
+export const getTweetMineTweetList = (page, okCallback, errorCallback) => {
 
-    let accesstoken = store.getters.token.access_token
+    const accesstoken = store.getters.token.access_token
 
-    let userId = store.getters.token.uid
+    let user = store.getters.token.uid
 
     var request_data = {
         paramsObj: {
             access_token: accesstoken,
-            catalog: 4,
-            user: userId,
+            user: user,
             pageSize: 20,
-            page: page,
+            pageIndex: page,
             dataType: 'json'
         },
-        methodName: 'getMineTweetList'
+        methodName: 'getTweetList'
     }
 
     var config = {
