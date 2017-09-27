@@ -67,3 +67,7 @@ export const mine_comment_page = state => state.mine_comment_module.page
 //个人中心-我的消息-私信
 export const private_letter_list = state => state.private_letter_module.statuses
 export const private_letter_page = state => state.private_letter_module.page
+
+//个人中心-我的博客
+export const mine_blog_list = state => state.mine_blog_module.statuses
+export const mine_blog_page = state => state.mine_blog_module.page

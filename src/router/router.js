@@ -21,6 +21,8 @@ import MsgCenter from '../components/msgcenter/MsgCenter'
 import AtMe from '../components/msgcenter/AtMe'
 import MineComment from '../components/msgcenter/MineComment'
 import PrivateLetter from '../components/msgcenter/PrivateLetter'
+import MineData from '../components/mine/MineData'
+import MineBlog from '../components/mine/MineBlog'
 import store from '../store/'
 import * as scrollUtils from '../utils/scroll-position'
 import {DEBUG} from '../api/config/api-config'
@@ -201,6 +203,22 @@ const router = new Router({
                     }
                 },
             ]
+        },
+        {
+            path: '/minedata',
+            name: 'minedata',
+            component: MineData,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/mineblog',
+            name: 'mineblog',
+            component: MineBlog,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: '*',

@@ -17,6 +17,7 @@ import mine_info_mine_tweet_module from './modules/mine/mine_info_mine_tweet_mod
 import at_me_module from './modules/mine/at_me_module'
 import mine_comment_module from './modules/mine/mine_comment_module'
 import private_letter_module from './modules/mine/private_letter_module'
+import mine_blog_module from './modules/mine/mine_blog_module'
 import * as getters from './getters'
 
 Vue.use(Vuex)
@@ -40,6 +41,7 @@ export default new Vuex.Store({
         at_me_module,
         mine_comment_module,
         private_letter_module,
+        mine_blog_module,
         mine
     }
 })

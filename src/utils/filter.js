@@ -117,3 +117,7 @@ export const getDeviceNameByType = (type) => {
     }
     return ""
 }
+
+export const filterHtml = (str) => {
+    return str.replace(/<[^>]+>/g,"");
+}

@@ -55,3 +55,6 @@ export const MINE_COMMENT = 'mine_comment'
 
 //消息中心-私信
 export const PRIVATE_LETTER = 'private_letter'
+
+//个人中心-我的博客
+export const MINE_BLOG = 'mine_blog'

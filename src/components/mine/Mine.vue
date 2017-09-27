@@ -45,13 +45,13 @@
                     <img style="width: 30px;height: 30px" src="../../assets/ic_my_message.png">
                     <div class="mine_badge_div_class" v-on:click="goToMsgCenter">
                         <span class="bottom_item_span_class_mine">我的消息</span>
-                        <mt-badge size="small" color="#E35B5A" style="margin-left: 5px;text-align: center;line-height: 20px">2</mt-badge>
+                        <mt-badge size="small" color="#E35B5A" style="margin-left: 5px;text-align: center;line-height: 20px;display: none">2</mt-badge>
                     </div>
                     <img style="width: 10px;height: 15px" src="../../assets/ic_arrow_right.png">
                 </div>
                 <div class="item_split_div_class"></div>
             </div>
-            <div class="bottom_item_div_class">
+            <div class="bottom_item_div_class" v-on:click="goToMineData">
                 <div class="item_top_div_class">
                     <img style="width: 30px;height: 30px" src="../../assets/ic_my_profile.png">
                     <span class="bottom_item_span_class">我的资料</span>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="item_split_div_class"></div>
             </div>
-            <div class="bottom_item_div_class">
+            <div class="bottom_item_div_class" v-on:click="goToMineBlog">
                 <div class="item_top_div_class">
                     <img style="width: 30px;height: 30px" src="../../assets/ic_my_blog.png">
                     <span class="bottom_item_span_class">我的博客</span>
@@ -155,6 +155,12 @@
             },
             goToMsgCenter(){
                 this.$router.push({name : 'msgcenter'})
+            },
+            goToMineData(){
+                this.$router.push({name : 'minedata'})
+            },
+            goToMineBlog(){
+                this.$router.push({name : 'mineblog'})
             }
         }
     }
