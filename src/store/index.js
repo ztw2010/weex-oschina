@@ -18,6 +18,7 @@ import at_me_module from './modules/mine/at_me_module'
 import mine_comment_module from './modules/mine/mine_comment_module'
 import private_letter_module from './modules/mine/private_letter_module'
 import mine_blog_module from './modules/mine/mine_blog_module'
+import soft_category_module from './modules/explore/soft_category'
 import * as getters from './getters'
 
 Vue.use(Vuex)
@@ -42,6 +43,7 @@ export default new Vuex.Store({
         mine_comment_module,
         private_letter_module,
         mine_blog_module,
+        soft_category_module,
         mine
     }
 })

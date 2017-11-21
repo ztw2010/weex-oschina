@@ -4,8 +4,8 @@ import {
     TOKEN
 } from '../mutations-type'
 
-import { saveToken, clearToken, getToken } from '../../utils/token-storage'
-import { oauthPost } from '../../api/impl/auth'
+import {saveToken, clearToken, getToken} from '../../utils/token-storage'
+import {oauthPost} from '../../api/impl/auth'
 
 const state = {
     token: {},
@@ -37,7 +37,7 @@ const mutations = {
 
 const actions = {
     // code : oauth2 授权后返回的code 
-    login: ({ commit }, code) => {
+    login: ({commit}, code) => {
         oauthPost(
             code,
             response => {
@@ -48,12 +48,15 @@ const actions = {
             }
         )
     },
-    getToken: ({ commit }) => {
+    getToken: ({commit}) => {
         const token = getToken();
         if (token) {
             commit(LOGIN, JSON.parse(token))
         }
-    }
+    },
+    logout: ({commit}) => {
+        commit(LOGOUT)
+    },
 }
 
 export default {

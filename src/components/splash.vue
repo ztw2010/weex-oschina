@@ -44,7 +44,14 @@ export default {
 			if (val) {
 				this.goMain()
 			}
-		}
+		},
+        '$route.params': function (val, oldVal) {
+            if(val){
+                if(typeof(val.haserror) !== "undefined" && val.haserror){
+                    this.logOut()
+                }
+            }
+        },
 	},
 	mounted() {
 		this.checkUrl()
@@ -54,7 +61,8 @@ export default {
 		// 和 mapState、mapGetters 也类似，只不过它映射的地方不是计算属性，而是组件的 methods 对象上。
 		//...mapMutations映射的是 store 的 commit 方法
         ...mapActions([
-            'login'
+            'login',
+            'logout'
         ]),
         checkUrl() {
             var vue = this
@@ -82,7 +90,10 @@ export default {
             setTimeout(function () {
                 vue.$router.replace({ name: 'main' });
             }, 2000)
-        }
+        },
+        logOut(){
+            this.logout()
+        },
     }
 }
 </script>

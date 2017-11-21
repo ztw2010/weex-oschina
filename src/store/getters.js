@@ -71,3 +71,32 @@ export const private_letter_page = state => state.private_letter_module.page
 //个人中心-我的博客
 export const mine_blog_list = state => state.mine_blog_module.statuses
 export const mine_blog_page = state => state.mine_blog_module.page
+
+//发现-开源软件-分类
+export const software_category_list = state => state.soft_category_module.softCategory
+
+//发现-开源软件-第二级分类
+export const software_category_second_list = state => state.soft_category_module.softCategorySecond
+
+//发现-开源软件-第三级分类
+export const software_category_third_list = state => state.soft_category_module.softCategoryThird
+
+//发现-开源软件-推荐
+export const software_recommend_list = state => state.soft_category_module.recommendList
+//发现-开源软件-推荐
+export const software_recommend_page = state => state.soft_category_module.recommendPage
+
+//发现-开源软件-最新
+export const software_time_list = state => state.soft_category_module.timeList
+//发现-开源软件-最新
+export const software_time_page = state => state.soft_category_module.timedPage
+
+//发现-开源软件-热门
+export const software_view_list = state => state.soft_category_module.viewList
+//发现-开源软件-热门
+export const software_view_page = state => state.soft_category_module.viewPage
+
+//发现-开源软件-国产
+export const software_cn_list = state => state.soft_category_module.cnList
+//发现-开源软件-国产
+export const software_cn_page = state => state.soft_category_module.cnPage

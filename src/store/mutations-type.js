@@ -58,3 +58,24 @@ export const PRIVATE_LETTER = 'private_letter'
 
 //个人中心-我的博客
 export const MINE_BLOG = 'mine_blog'
+
+//发现-开源软件-第一级分类
+export const SOFTWARE_CATEGORY = 'software_category'
+
+//发现-开源软件-第二级分类
+export const SOFTWARE_CATEGORY_SECOND = 'software_category_second'
+
+//发现-开源软件-第三级分类
+export const SOFTWARE_CATEGORY_THIRD = 'software_category_third'
+
+//发现-开源软件-推荐
+export const RECOMMEND_LIST = 'recommend_list'
+
+//发现-开源软件-最新
+export const TIME_LIST = 'time_list'
+
+//发现-开源软件-热门
+export const VIEW_LIST = 'view_list'
+
+//发现-开源软件-国产
+export const CN_LIST = 'cn_list'

@@ -8,7 +8,7 @@ import MultiNews from '../components/multi/MultiNews'
 import SoftUpdate from '../components/multi/SoftUpdate'
 import Tweet from '../components/tweet/Tweet'
 import NewsDetail from '../components/NewsDetail'
-import Discovery from '../components/Discovery'
+import Discovery from '../components/explore/Discovery'
 import Mine from '../components/mine/Mine'
 import CommentList from '../components/CommentList'
 import RecentTweet from '../components/tweet/RecentTweet'
@@ -23,6 +23,7 @@ import MineComment from '../components/msgcenter/MineComment'
 import PrivateLetter from '../components/msgcenter/PrivateLetter'
 import MineData from '../components/mine/MineData'
 import MineBlog from '../components/mine/MineBlog'
+import SoftWareCategory from '../components/explore/SoftwareCategory'
 import store from '../store/'
 import * as scrollUtils from '../utils/scroll-position'
 import {DEBUG} from '../api/config/api-config'
@@ -33,7 +34,8 @@ const router = new Router({
     mode: 'history',
     routes: [
         {
-            path: '/splash',
+            path: '/splash/:haserror?',
+            name: 'splash',
             component: Splash,
         },
         {
@@ -216,6 +218,14 @@ const router = new Router({
             path: '/mineblog',
             name: 'mineblog',
             component: MineBlog,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/softcategory',
+            name: 'softcategory',
+            component: SoftWareCategory,
             meta: {
                 requiresAuth: true
             }

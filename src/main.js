@@ -30,5 +30,10 @@ new Vue({
   template: '<App/>',
   components: {
     App
+  },
+  data: function () {
+      return {
+          Bus: new Vue()
+      }
   }
 })
