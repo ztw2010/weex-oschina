@@ -97,7 +97,7 @@
                   <h3 class="md-title">设置</h3>
                 </div>
             </md-toolbar>
-            <div class="mine_logout_div_class">
+            <div class="mine_logout_div_class" v-on:click="logsout">
                 <span class="logout_span_class">注销</span>
             </div>
         </md-sidenav>
@@ -106,7 +106,7 @@
 
 <script>
     import { mapActions, mapGetters } from 'vuex'
-    import { Lazyload,Badge } from 'mint-ui'
+    import { Lazyload,Badge, MessageBox,Toast  } from 'mint-ui'
     export default {
         name: "mine",
         data() {
@@ -125,13 +125,14 @@
         },
         computed: {
             ...mapGetters({
-                mineInfo: 'mine_info'
+                mineInfo: 'mine_info',
             })
         },
         methods:{
             ...mapActions([
                 'getMineInfo',
-                'updateType'
+                'updateType',
+                'logout'
             ]),
             toggleLeftSidenav() {
                 this.$refs.leftSidenav.toggle();
@@ -161,6 +162,18 @@
             },
             goToMineBlog(){
                 this.$router.push({name : 'mineblog'})
+            },
+            logsout(){
+                let vue = this
+                MessageBox.confirm('确定退出吗?', '提示',).then(action => {
+                    vue.toggleLeftSidenav()
+                    Toast({
+                        message: '注销成功',
+                        position: 'middle',
+                        duration: 2000
+                    })
+                    vue.$router.push({ name: 'splash' , params: {haserror: true}})
+                })
             }
         }
     }
